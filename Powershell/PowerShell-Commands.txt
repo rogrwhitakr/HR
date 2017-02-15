@@ -1,0 +1,69 @@
+﻿wo bin ich gerade?
+
+	pwd, alias: gl / get-location
+	
+was ist im directory?
+
+	ls, dir, get-ChildItem
+	
+
+Wie im Linux-directory?
+
+	Mode
+
+	-----
+	darhs
+	d---- 	-->“d” (indicates item is a directory) or “-” (indicates item is a file). 
+	-a---	-->	last 4 entries present properties of a File/Directory . -->  “a” = archive bit is set
+	--r--	--> “r” = read only
+	---h-	--> “h” = hidden
+	----s	--> “s” = system
+	darhs	
+
+	A “-” in any of these entries means the bit is not set.
+
+	
+test-path
+
+	true / false
+
+ghy, get-history 
+	
+	bei langen Sessions
+	F7 geht auch, durchsuchbar
+	F8 macht auch irgendwas
+
+
+get-command -verb / -noun ist nützlich zum filtern!
+
+
+get-content 
+	
+	notepad text.txt --> öffnet text in notepad
+	start .\file --> öffnet im Standard-Programm
+	invoke.item --> equivalent to clicking on a file where the file type determines which application is launched.
+	.\file macht es auch
+	
+		zum Ansehen von den Inhalten einer Textdatei
+		add-content fügt zeug dazu, am unteren Ende, ohne formatierung
+		
+
+zum Aufrufen von einem Programm: 
+
+		start
+		get-service
+		start-service
+			
+
+get-help [COMMAND] -full oder -detailed --> mit Beispielen
+
+	in der PowerShell Vers. 3.0 ist die Hilfe delokalisiert, es wird zuerst de-DE durchsucht nach Hilfethemen 
+	http://www.windowspro.de/tipp/powershell-hilfedateien-fuer-dieses-cmdlet-koennen-von-get-help-auf-diesem-computer-nicht-gefun
+			
+	--> andere Sprachen addieren 
+	--> als Admin ausführen 
+	-->	update-help -uiCulture en-US
+
+Clear-Host --> leert die Console
+	
+	

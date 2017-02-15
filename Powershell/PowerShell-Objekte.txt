@@ -1,0 +1,29 @@
+Objekte !!!
+
+
+An object, in PowerShell, consists of properties (information we can gather) and methods (actions we can perform).
+
+	Beispiel: light bulb. The properties of a light bulb could be color, wattage, and type (florescent, incandescent, or halogen). 
+	Methods are the actions we can perform on the object such as; turn on the light bulb and turn off the light bulb.
+	
+	get-member --> returns properties, methods, data types
+	
+	get-ChildItem 
+	
+		-recurse gibt alle child-directories aus
+		-name --> zum Beispiel alle docx-Dateien anzeigen
+		
+	dateTime ist ein massiver Hitler, weil er im US-Format? eingegeben werden muss !!!
+	
+
+Format
+	
+	format-wide --> columns : in wievielen Spalten anzeigen
+
+
+group-object --> dann sortieren --> Sort-object --> pipeline geht immer weiter...	
+					
+	get-process WS (workingSet) refers to Size --> $WS -gt xyMB | stop-process <--
+	
+
+convert-toHtml/XML/CSV | out-file %filename%	

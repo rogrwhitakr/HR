@@ -1,0 +1,33 @@
+Open Explorer from Command Line to current directory
+	explorer .
+
+Wie löange läuft der Rechner schon?
+	systeminfo | find "Systemstartzeit"
+
+Wenn nicht über Workstation GUI möglich
+	-->	get VMWARE virtual Network Editor
+		-->	change directory to VMWARE directory
+		->	rundll32.exe vmnetui.dll VMNetUI_ShowStandalone
+		
+sc	-->	Befehlszeilenprogramm für die Kommunikation mit dem
+        Dienststeuerungs-Manager und mit Diensten.
+		Service Controller utility SC
+		-->	SYNTAX:
+			sc <Server> [Befehl] [Dienstname] <Option1> <Option2>...
+			sc delete "ServiceName"
+
+Windows Services
+
+	mit sc
+	
+	SYNTAX:
+			sc <Server> [Befehl] [Dienstname] <Option1> <Option2>...
+	
+	sc delete "OPTITOOL Service_name"
+	
+	%path%\OPTITOOL\Winserv\Instances\%service%\winserv.ini
+	anpassen
+	
+	Winserv öffnen, Dienst erneut installieren
+	oder 
+	sc create "OPTITOOL Service_name" bn-path options...	

@@ -1,0 +1,161 @@
+net view tuts auch, aber...
+	([adsi]"WinNT://WORKGROUP").Children
+
+reads all associated file extensions from the Windows Registry:
+
+	Get-ItemProperty Registry::HKCR\.* | 
+	Select-Object -Property PSChildName, '(default)', ContentType, PerceivedType
+
+ALias
+
+	fl - format-list
+	man - help
+	ls - list
+	dir - get-childItem
+	ps - Get-Process
+
+	Alias kann man importieren / exportieren !
+	$Profile
+			1.	Verify existence of a profile.
+				test-path $Profile <enter>
+			2.	Create a new profile.
+				New-Item -Path $Profile -ItemType file -Force <enter>
+
+Powershell - Vonnie Tutorial
+
+	Get-Process -ComputerName
+		Alias ps -c
+		
+	option	-PassThru
+				shows result of action (start-service shows service started)
+			-WhatIf
+				shows what will happen 
+			-Confirm
+				asks again
+	
+	Pipeline
+	 Get-Service | Where-Object status -eq stopped | Select-Object Name, status | ConvertTo-Html
+		wird langsam "eingetrichtert", Objekte !!!!
+		Eintrichtern das wichtigste !!!
+		
+	Select-Object * 
+		-->	explandiert das wenige Standard-angezeigte
+		
+	Out-GridView
+		-->	Ánsicht in excel-artiger tabelle
+	
+	ConvertTo-Html / CSV
+	Export-CSV -delimiter (zum Beispiel)
+	
+Objects >> 25.02.2016
+	
+	get-member displays everything you can do with an object
+	==> Methods and Properties
+	
+	wichtig für Select-Object, das zeigt das alles an dann
+	==> select all Properties | Methods of Object ==> Display all Values inside !!!
+	
+	Get-Service | Where-Object {$_.Status -eq "Running" -and $_.CanStop}
+	-->	hier kann man mit Select-Object Name,Status,CanStop sehen, dass CanStop=true ist
+		
+	@ ==> Hash Table für berechnungen on the fly, zum beispiel größe
+	-->	@{n="Namen der Spalte des Hashtables"; e={$_.length / 1 MB}}
+		Name									Expression
+	Berechnungen, mathefunktionen müssen statische Methode von Math benutzen
+	--> e={[math]::round($_.length / 1 MB, 4)}   (die $ = Anzahl Stellen)
+	
+	Methoden, die [math] bereitstellt 
+	==>	[math].getmethods() | Select -Property Name -Unique
+	
+Snap-Ins/ modules >> 02.03.2016
+
+	mmc --> snap-ins --> ältere Technologie
+	modules kann man auch selber zusammen stellen
+	ein module ist eine Sammlung aus CmdLets in einer Datei
+	
+	Get-Module
+	-->	zeigt "installierte", bzw die Modules der Session
+		-ListAvailable
+		
+	Import-Module
+	
+	Get-Command -Module ActiveDirectory
+	-->	zeigt alle Commands / CmdLets des Modules
+		
+	ModuleTypes	
+		Script Modules (.psm1)
+		Dynamic Modules
+		Binary Modules (.dll)
+		Manifest Modules (.psd1)
+
+08.03.2016
+
+	? -->	Alias für Where-Object
+	
+	Unterschied ConvertTo-Csv | Export-CSV
+	Pipeline ENDET mit Export-CSV
+	
+	eine Datei auf einen Network-Share zu platzieren , ist Out-File notwendig 
+	(The Out-File cmdlet sends output to a file. You can use this cmdlet 
+	instead of the redirection operator (>) when you need to use its parameters.)
+	
+	==>	ConvertTo-Csv | Out-File (to Location, append , etc...)
+	
+	XML 
+	ConvertTo-Clixml
+	Export-Clixml
+	Import-Clixml
+	
+12.03.2016
+
+	Windows Features
+		Get-WindowsFeature
+		Add-WindowsFeature
+	
+	Zur Administration Module WebAdministration
+	-Provider
+	
+	Tee-Object !!!
+	
+30.03.2016	
+	Get-ChildItem -Path Z:\MyScripts -Recurse | Select-Object -Property name , lastwritetime | Sort-Object -Descending lastwritetime | Out-File .\Desktop\files.txt
+	
+07.04.2016
+    Möglichst weit links mit dem filtern anfangen, ansonsten wird ALLES in die Pipeline geschickt
+
+    #Formatierung
+    	
+16.04.2016
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+	

@@ -1,0 +1,6 @@
+
+gpedit.msc
+
+Local Computer Policy\Computer Configuration\Administrative Templates\Windows Components\OneDrive
+
+enable

@@ -1,0 +1,73 @@
+netstat	-a				alle Ports / Verbindungen
+		-p	<PROTO>		z.B TCP
+		-s				statistic  --> eher nutzlos
+		-n				IP/Ports nummerisch
+		-b				Application using port ! --> braucht admin-Rechte
+netstat -anp tcp
+
+Netsh	-->	DHCP-Servertools, firewall , etc.
+
+http://ss64.com/nt/netsh.html
+	-->	gute Liste
+
+nslookup
+	set type = mx
+		-->	Mail Exchange Resource Record (MX-RR)
+			MX-Record sagt aus, unter welchem Domain Name der Mail-Server zu einer Domäne oder Subdomäne erreichbar
+			
+netsh
+	-->	advfirewall
+		-->	show profileType (required)
+			-->	allprofiles,currentprofile,domainprofile,etc.
+			-->	state/policy/settings
+				-->	Z.B. netsh advfirewall show allprofiles state
+		-->	Firewall 
+			-->	view, create, and modify firewall rules (show,set,delete,etc...)
+			-->	show rule
+				-->	name=all/RuleName
+				-->	type=dynamic/static
+				-->	verbose
+					-->	Z.B. netsh advfirewall fireall show rule name=all/mysql/optengine
+					
+					-->	am besten suchen nach:
+						-->	rule name=all | find /i (keine Groß-Kleinschreibung beachten) "sql"
+					--> in der Powershell
+						-->	netsh advfirewall firewall show rule name=all | select-string -pattern "Hyper-V"
+
+	netsh advfirewall consec ?              - Display a list of commands.
+	netsh advfirewall consec add            - Add a new connection security rule.
+	netsh advfirewall consec delete         - Delete all matching connection security rules.
+	netsh advfirewall consec dump           - Display a configuration script.
+	netsh advfirewall consec set            - Set new values for properties of an existing rule.
+	netsh advfirewall consec show           - Display a specified connection security rule.
+	
+	netsh advfirewall dump    				- Create a script that contains the current configuration.
+	netsh advfirewall export path\filename  - Export the current policy to the specified file.
+	netsh advfirewall import path\filename  - Import policy from the specified file.
+	
+	netsh advfirewall firewall add          - Add a new inbound or outbound firewall rule.
+	netsh advfirewall firewall delete       - Delete all matching inbound rules.
+	netsh advfirewall firewall dump         - Display a configuration script.
+	netsh advfirewall firewall set          - Set new values for properties of a existing rule.
+	netsh advfirewall firewall show         - Display a specified firewall rule.
+	
+	netsh advfirewall monitor delete        - Delete all matching security associations.
+	netsh advfirewall monitor dump          - Display a configuration script.
+	netsh advfirewall monitor show          - Show all matching security associations.
+	
+	netsh advfirewall reset   				- Reset to factory settings (Firewall=ON)
+	
+	netsh advfirewall set allprofiles    	- Set properties in all profiles.
+	netsh advfirewall set currentprofile 	- Set properties in the active profile.
+	netsh advfirewall set domainprofile  	- Set properties in the domain profile.
+	netsh advfirewall set global         	- Set the global properties.
+	netsh advfirewall set privateprofile 	- Set properties in the private profile.
+	netsh advfirewall set publicprofile  	- Set properties in the public profile.
+	
+	netsh advfirewall show allprofiles    	- Display properties for all profiles.
+	netsh advfirewall show currentprofile 	- Display properties for the active profile.
+	netsh advfirewall show domainprofile  	- Display properties for the domain properties.
+	netsh advfirewall show global         	- Display the global properties.
+	netsh advfirewall show privateprofile 	- Display properties for the private profile.
+	netsh advfirewall show publicprofile  	- Display properties for the public profile.
+	netsh advfirewall show store          	- Display the policy store for the current interactive session.

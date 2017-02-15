@@ -1,0 +1,66 @@
+Rules in Batch Scripting
+:: Remove quotes
+   SET _string=###%_string%###
+   SET _string=%_string:"###=%
+   SET _string=%_string:###"=%
+   SET _string=%_string:###=%
+   
+Auskommentieren
+	rem
+	::
+	
+goto ninja
+	:ninja
+	
+CMD-Streams
+errorlevel 0	--> stream 1
+errorlevel 1	--> stream 2
+
+
+cd /D %~dp0
+
+There are three parts:
+
+cd -- This is change directory command.
+/d -- This switch makes cd change both drive and directory at once. Without it you would have to do cd %~d0 & cd %~p0.
+%~dp0 -- This can be dissected further into three parts:
+%0 -- This represents zeroth parameter of your batch script. It expands into the name of the batch file itself.
+%~0 -- The ~ there strips double quotes (") around the expanded argument.
+%dp0 -- The d and p there are modifiers of the expansion. The d forces addition of a drive letter and the p adds full path.
+
+http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/percent.mspx?mfr=true
+
+
+Variablen in Batch files
+
+You can run multiple commands from a single command line or script using conditional processing symbols. When you run multiple commands with conditional processing symbols, the commands to the right of the conditional processing symbol act based upon the results of the command to the left of the conditional processing symbol.
+
+& [...]  command1 & command2
+	
+	-->	Use to separate multiple commands on one command line. Cmd.exe runs the first command, and then the second command.
+
+&& [...]  command1 && command2
+	
+	-->	Use to run the command following && only if the command preceding the symbol is successful. Cmd.exe runs the first command, and then runs the second command only if the first command completed successfully.
+
+|| [...]  command1 || command2
+	
+	-->	Use to run the command following || only if the command preceding || fails. Cmd.exe runs the first command, and then runs the second command only if the first command did not complete successfully (receives an error code greater than zero).
+
+( ) [...]  (command1 & command2)
+
+	-->	Use to group or nest multiple commands.
+
+; or , command1 parameter1;parameter2
+
+	-->	Use to separate command parameters.
+
+In most contexts, surround the variable name with %'s and the variable's value will be used 
+
+	-->	e.g. To display the value of the _department variable with the ECHO command: 
+		ECHO %_department%
+		(vorher muss natürlich ein Value assigned werden)
+
+If the variable name is not found in the current environment then SET will set %ERRORLEVEL% to 1 .
+	
+	==> IF ERRORLEVEL ...

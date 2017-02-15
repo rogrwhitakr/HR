@@ -1,0 +1,7 @@
+%AppData%
+
+Roaming\Microsoft\Windows\Libraries
+
+insert 
+
+  <iconReference>C:\Users\bosterholt\Pictures\optitool.ico</iconReference>

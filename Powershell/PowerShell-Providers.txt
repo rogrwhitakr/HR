@@ -1,0 +1,27 @@
+PowerShell -Providers
+
+	A Provider is also called a “snap-in” which is a dynamic link library (.dll) built into PowerShell. 
+	A library is code that instructs PowerShell to preform an action when we execute a command. 
+	What this means is that we no longer have to write code, as we did in VBScript, to connect to the registry. 
+	The code is provided for us, simplifying our efforts.	
+
+get-PSProvider
+
+	alias, variable, certificate, registry,...
+
+get-PSDrive
+
+	a Provider enables access
+	
+
+functions-Provider
+
+	A function allows you to make calls to a block of code
+	if you notice that you are using the same code over and over (within the same script), you should consider creating a function
+
+	viele set-location-functions --> c: = set-location c:\
+	clear-host
+	
+Registry-Provider !!!
+
+	
