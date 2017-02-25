@@ -39,17 +39,17 @@ title %title% - Version: %version%
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 set mydate=%date:~-4%-%date:~-7,2%-%date:~-10,2%
-set mysql_path=C:\OPTITOOL\005_MySQL\MySQL Server 5.6\
+set mysql_path=C:\MySQL\MySQL Server 5.6\
 set data_path=data\
 set bin_path=bin\
 set zip_path=C:\Program Files\7-Zip
 
-set backup_path=C:\OPTITOOL\010_db_backup\test\
-set db_name_0=ot_energie
-set db_name_1=ot_bak
-set db_name_2=ot_danone
-set db_name_3=ot_hk
-set db_backup=ot_mysql
+set backup_path=C:\db_backup\
+set db_name_0=prod_1
+set db_name_1=prod_2
+set db_name_2=prod_3
+set db_name_3=prod_4
+set db_backup=prod_all
 set time_var=skip=8
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -58,7 +58,7 @@ set time_var=skip=8
 
 if not exist "%backup_path%%db_backup%_backup_error.log" echo. 2> "%backup_path%%db_backup%_backup_error.log"
 echo %date% - %time% >> %backup_path%%db_backup%_backup_error.log
-echo Backup of OPTITOOL database %db_name% >> %backup_path%%db_backup%_backup_error.log
+echo Backup of database %db_name% >> %backup_path%%db_backup%_backup_error.log
 
 cd /D %mysql_path%%bin_path%
 mysqldump -u root -popti --databases %db_name_0% %db_name_1% %db_name_2% %db_name_3% > %backup_path%%mydate%_%db_backup%.sql  2>> %backup_path%%db_backup%_backup_error.log

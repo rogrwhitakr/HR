@@ -53,7 +53,7 @@ rem =====================================================
 
 if not exist "%backup_path%%db_backup%_backup.log" echo. > "%backup_path%%db_backup%_backup.log"
 echo %date% - %time% >> %backup_path%%db_backup%_backup.log
-echo Backup of OPTITOOL database %db_name% >> %backup_path%%db_backup%_backup.log
+echo Backup of database %db_name% >> %backup_path%%db_backup%_backup.log
 
 cd /D %sql_path%
 mysqldump -u root -popti %db_name% > %backup_path%%mydate%_%db_backup%.sql  2>> %backup_path%%db_backup%_backup.log

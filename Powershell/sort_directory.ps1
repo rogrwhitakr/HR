@@ -77,4 +77,4 @@ function Sort-WSBackup {
 
 }
 
-Sort-WSBackup -Path D:\Arla\DK\Server\apache-tomee-plus-1.7.4\backup_play
+Sort-WSBackup -Path "path"

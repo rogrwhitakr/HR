@@ -97,3 +97,76 @@ se: collapse;}TH,TR,TD{border-width: 1px;padding: 10px;border-style: solid;borde
 	Get-ChildItem -Path Z:\MyScripts -Recurse -Include *.*| Select-Object -Property name , lastwritetime , Extension  | 
     Sort-Object -Descending lastwritetime  | Out-File .\Desktop\files.txt
 
+##############################################################################################################################################
+
+$result = "$home\Desktop\Dokumentation.txt" 
+$gna = "txt"
+ 
+function Get-LogFiles {
+    param (
+        [string] $LoggingPath = '*',
+        [string] $Extension = '*',
+        [string] $ResultPath = '*'
+        )
+   
+    Get-ChildItem -Path $LoggingPath -Include *.$Extension -Exclude ".\PowerShell" -Recurse -ErrorAction SilentlyContinue | Out-File -FilePath $ResultPath
+    }
+ 
+Get-LogFiles -LoggingPath $asder -Extension $gna -ResultPath $result
+
+
+##############################################################################################################################################
+
+#05.04.2016
+
+Get-Service | ? {$_.Status -eq "running"} | Select-Object -Property machinename,displayname,Name 
+
+#07.04.2016
+
+get-service -ComputerName reese
+
+$session = New-PSSession -ComputerName reese -Credential (Get-Credential)
+Invoke-Command -Session $session -ScriptBlock {get-service}
+
+winrm g
+
+Set-Alias gh Get-Help
+gh about_Remote_Troubleshooting
+
+
+$dire = "C:\"
+
+function do-shit {
+    param(
+        [String] $FilePath #[mandatory:true]
+        )
+        Get-ChildItem -Path $FilePath -Recurse
+ }
+
+ do-shit($dire)
+
+ gh *operator*
+
+ Get-Service  | Format-wide name -Column 5
+
+ Get-EventLog system | select -First 3 | Tee-Object -Variable $syslog
+    Format-Table -Property entrytype,source,timegenerated, @{n="Generated how long ago: ";e={(Get-Date) - $_.TimeGenerated }; align='right';formatstring='dd\.hh\:mm\:ss'}
+
+##############################################################################################################################################
+
+Get-ADComputer
+
+###	zeigt aktuelle PowerShell Version an
+$psversiontable
+
+### Switching Keyboard Layout 	
+Set-WinUserLanguageList -LanguageList de-de -Force 	
+
+Tee-Object
+
+##############################################################################################################################################
+
+
+
+##############################################################################################################################################
+

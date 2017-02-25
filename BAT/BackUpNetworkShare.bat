@@ -18,7 +18,7 @@ rem	  Achtung! Nur die Zahl anpassen!
 rem ==========================================================
 
 set zip_path=C:\Program Files\7-Zip\
-set DirectoryToBackup=D:\OPTITOOL
+set DirectoryToBackup=D:\backupdir\
 set backup_name=NetworkShare
 set backup_path=D:\Backup
 

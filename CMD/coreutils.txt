@@ -1,0 +1,23 @@
+Open Explorer from Command Line to current directory
+	explorer .
+
+get total numer of files in directory
+	dir \ /s /a /w
+		/s -- recurse
+		/a -- list attributes
+		
+how long has the computer been running?
+	systeminfo | find "Systemstartzeit"
+
+Wenn nicht über Workstation GUI möglich
+	-->	get VMWARE virtual Network Editor
+		-->	change directory to VMWARE directory
+		->	rundll32.exe vmnetui.dll VMNetUI_ShowStandalone
+		
+Verknüpfungen in Windows
+
+Putty 
+	Ziel anpassen
+	-->	"C:\Program Files (x86)\Putty\putty.exe" root@192.168.100.81 -pw linux#
+	-->	putty.exe -ssh root@somewhere.com -pw [password]
+
