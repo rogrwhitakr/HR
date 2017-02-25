@@ -50,7 +50,7 @@ rem =====================================================
 
 if not exist "%backup_path%%db_backup%_backup.log" echo. > "%backup_path%%db_backup%_backup.log"
 echo %date% - %time% >> %backup_path%%db_backup%_backup.log
-echo Backup of OPTITOOL database %db_name% >> %backup_path%%db_backup%_backup.log
+echo Backup of database %db_name% >> %backup_path%%db_backup%_backup.log
 
 cd /D %sql_path%
 sqlcmd -E -S %instance% -d master -Q "BACKUP DATABASE [%db_name%] TO DISK = N'%backup_path%%mydate%_%db_backup%.bak' WITH INIT , NOUNLOAD , NAME = N'%mydate%_%db_backup%', NOSKIP , STATS = 10, NOFORMAT" 2>> %backup_path%%db_backup%_backup.log
