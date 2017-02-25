@@ -6,7 +6,7 @@ rem ============================================================================
 rem Alle Verzeichnisse, die bereinigt werden sollen, hier mit Leerfeld getrennt auflisten:
 rem ======================================================================================
 
-set folders=log import\backup import\log service_ActualData\log service_ActualData\backup service_PositionData\log backup_data\Client
+set folders=log backup
 
 
 rem ================================================================================
