@@ -8,25 +8,24 @@
         $Method,
 
         [String]
-        [Parameter( Mandatory = $true, ValueFromPipeline = $true, Position = 1, HelpMessage = "File/Directory to compress")]
+        [Parameter( Mandatory = $true, ValueFromPipeline = $true, Position = 1, HelpMessage = "File/Directory to compress OR extract to")]
         [ValidateScript({Test-Path $_ })]
         $Path,
 
         [String]
         [Parameter( Mandatory = $true, ValueFromPipeline = $true, Position = 2)] 
-        #[ValidateScript({Test-Path $_ -PathType ‘Container’})]
-        $Destination
+        [ValidateScript({Test-Path $_ -include *.zip,*.7z})]
+        $Archive
     )
 
     BEGIN {
 
-        $tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "7z.exe" -Recurse  )
-        
+        $tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "7z.exe" -Recurse  )     
+ #       $archive = $Destination + '\' + (Get-Date -format 'yyyy-MM-dd') + '.7z'
+
         Write-Output "Method is $Method "
-
-        $archive = New-Item -ItemType File -Path $Destination -Name ((Get-Date -format 'yyyy-MM-dd') + '7z')
-
         Write-Output "output file is $archive "
+
     }
 
     PROCESS {
@@ -36,13 +35,13 @@
         switch ($Method) 
             { 
                 Add {
-                    & $tool a -mx9 -scsUTF-8 $archive $Path 
+                    & $tool a -mx9 -scsUTF-8 $archive.ToString() $Path 
                 } 
                 Delete {
                     & $tool d -mx9 -scsUTF-8 $archive $Path 
                 } 
                 Extract {
-                    & $tool e -mx9 -scsUTF-8 -o $output_dir $archive
+                    & $tool x -mx9 -scsUTF-8 $archive -o$Path -y
                 } 
                 Test {
                     & $tool t -mx9 -scsUTF-8 $archive
@@ -54,27 +53,21 @@
                     Write-Output "No method selected."
                 }
             }
-
     }
-
 }
 
 Use-7ZipCompression
 
-$DestinationPath = "C:\Users\HaroldFinch\Desktop\test.zip"
 
-$archive = Get-ChildItem -Path $DestinationPath\* -Include *.zip,*.7z
-
-if ( ($archive).count -gt 1 ) {
-    Write-Output $archive.Name
-}
+$a = Get-ChildItem -Path "C:\Users\HaroldFinch\Desktop\2017-04-21.7z"
 
 
 
 
+Test-Path $a -include *.zip,*.7z
+$tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "7z.exe" -Recurse  )
 
-
-
+& $tool x -mx9 -scsUTF-8 "C:\Users\HaroldFinch\Desktop\2017-04-21.7z"  -o"C:\Users\HaroldFinch\Pictures\" 
 
 
 
@@ -127,7 +120,8 @@ $file = gci -Path "C:\Users\HaroldFinch\workspace\NorthernLights\indigo\Person.j
 $file1 = gci -Path "C:\Users\HaroldFinch\workspace\NorthernLights\indigo\Person.class"
 
 & $tool x -mx9 -scsUTF-8 "C:\Users\HaroldFinch\Desktop\zipfile.zip" "C:\Users\HaroldFinch\Desktop\"
-& $tool a -mx9 -scsUTF-8 "C:\Users\HaroldFinch\Desktop\zipfile.zip" $file1
+& $tool a -mx9 -scsUTF-8 "C:\Users\HaroldFinch\Desktop\zipfile.7z" $file1
+& $tool e -mx9 -scsUTF-8 -o 
 
 <Commands>
   a: Add files to archive
