@@ -67,7 +67,7 @@ Function Use-7ZipCompression {
         switch ($Method) 
             { 
                 Add {
-                    & $tool a -mx9 -scsUTF-8 $archive.ToString() $Path 
+                    & $tool a -mx9 -scsUTF-8 $archive.ToString() $Path | Tee-Object -Variable
                 } 
                 Delete {
                     & $tool d -mx9 -scsUTF-8 $archive $Path 
@@ -93,28 +93,10 @@ Use-7ZipCompression
 
 $a = Get-ChildItem -Path "C:\Users\HaroldFinch\Desktop\2017-04-21.7z"
 
-
-
-
 Test-Path $a -include *.zip,*.7z
 $tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "7z.exe" -Recurse  )
 
 & $tool x -mx9 -scsUTF-8 "C:\Users\HaroldFinch\Desktop\2017-04-21.7z"  -o"C:\Users\HaroldFinch\Pictures\demo\test" -y
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
