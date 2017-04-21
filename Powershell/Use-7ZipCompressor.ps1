@@ -3,19 +3,19 @@
     param (
 
         [String]
-        [Parameter( Mandatory = $true, ValueFromPipeline = $true, Position = 0)] 
-        [ValidateSet("Add", "Update", "Extract", "Delete", "Test")]
+        [Parameter( Mandatory = $true, ValueFromPipeline = $true, Position = 0, HelpMessage = "Compression Method")] 
+        [ValidateSet("Add", "Update", "Extract", "Delete", "Test")]     
         $Method,
 
         [String]
-        [Parameter( Mandatory = $true, ValueFromPipeline = $true, Position = 1)] 
+        [Parameter( Mandatory = $true, ValueFromPipeline = $true, Position = 1, HelpMessage = "File/Directory to compress")]
         [ValidateScript({Test-Path $_ })]
         $Path,
 
         [String]
         [Parameter( Mandatory = $true, ValueFromPipeline = $true, Position = 2)] 
-        [ValidateScript({Test-Path $_ -PathType ‘Container’})]
-        $DestinationPath
+        #[ValidateScript({Test-Path $_ -PathType ‘Container’})]
+        $Destination
     )
 
     BEGIN {
@@ -23,6 +23,10 @@
         $tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "7z.exe" -Recurse  )
         
         Write-Output "Method is $Method "
+
+        $archive = New-Item -ItemType File -Path $Destination -Name ((Get-Date -format 'yyyy-MM-dd') + '7z')
+
+        Write-Output "output file is $archive "
     }
 
     PROCESS {
