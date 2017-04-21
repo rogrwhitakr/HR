@@ -88,54 +88,16 @@ Function Use-7ZipCompression {
     }
 }
 
-Use-7ZipCompression
-
-
 $a = Get-ChildItem -Path "C:\Users\HaroldFinch\Desktop\2017-04-21.7z"
 
-Test-Path $a -include *.zip,*.7z
 $tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "7z.exe" -Recurse  )
 
-& $tool x -mx9 -scsUTF-8 "C:\Users\HaroldFinch\Desktop\2017-04-21.7z"  -o"C:\Users\HaroldFinch\Pictures\demo\test" -y
-
-
-
-
-$tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "7z.exe" -Recurse  )
-
-& $tool
-
-$file = gci -Recurse -Name "C:\Users\HaroldFinch\workspace\NorthernLights\indigo\Person.java"
-
-
-switch ($Method) 
-    { 
-        Add {
-            & $tool a -mx9 -scsUTF-8
-        } 
-        Delete {
-            & $tool d -mx9 -scsUTF-8
-        } 
-        Extract {
-            & $tool e -mx9 -scsUTF-8 -o $output_dir
-        } 
-        Test {
-            & $tool t -mx9 -scsUTF-8 ## no file!!!
-        } 
-        Update {
-            & $tool u -mx9 -scsUTF-8
-        } 
-        default {"No method selected."}
-    }
-
-7z a -mx9 %backup_path%%mydate%_%db_backup%.7z %backup_path%%mydate%_%db_backup%.sql 2>> %backup_path%%db_backup%_backup.log
-
-$file = gci -Path "C:\Users\HaroldFinch\workspace\NorthernLights\indigo\Person.java"
-$file1 = gci -Path "C:\Users\HaroldFinch\workspace\NorthernLights\indigo\Person.class"
+& $tool x -mx9 -scsUTF-8 "C:\Users\HaroldFinch\Desktop\2017-04-21.7z"  -o"C:\Users\HaroldFinch\Pictures\demo" -y
 
 & $tool x -mx9 -scsUTF-8 "C:\Users\HaroldFinch\Desktop\zipfile.zip" "C:\Users\HaroldFinch\Desktop\"
 & $tool a -mx9 -scsUTF-8 "C:\Users\HaroldFinch\Desktop\zipfile.7z" $file1
 & $tool e -mx9 -scsUTF-8 -o 
+
 
 <Commands>
   a: Add files to archive
