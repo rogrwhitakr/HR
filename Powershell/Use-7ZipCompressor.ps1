@@ -1,4 +1,41 @@
-﻿Function Use-7ZipCompression {
+﻿#requires -version 2
+<#
+.SYNOPSIS
+    use the 7zip utility for file compression and extraction
+
+.DESCRIPTION
+    makes (some) 7zip functionality available 
+
+.PARAMETER <Method>
+    provide one of 
+    Add, Update, Extract, Delete, Test
+
+.PARAMETER <Path>
+    provide to the Path variable a File or directory you want to compress 
+    provide to the Path variable a directory you want to extract to
+
+.PARAMETER <Archive>
+    provide to the Archive variable a valid archive file 
+    the function checks the file extension (*.zip or *.7z)
+
+.NOTES
+    Version:        1.0
+    Author:         rogrwhikar
+    Creation Date:  2017-04-21
+    Purpose:        used in a script to be run daily 
+  
+.EXAMPLE
+
+    Use-7ZipCompression -Method Extract -Path ".\Pictures" -Archive ".\Desktop\2017.7z"
+
+        Extract archive ".\Desktop\2017.7z" to the directory ".\Pictures"
+
+    Use-7ZipCompression -Method Update -Path ".\Pictures" -Archive ".\Desktop\2017.7z"
+
+        Update archive ".\Desktop\2017.7z" with the contents of the directory ".\Pictures"
+#>
+
+Function Use-7ZipCompression {
 
     param (
 
@@ -21,16 +58,11 @@
     BEGIN {
 
         $tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "7z.exe" -Recurse  )     
- #       $archive = $Destination + '\' + (Get-Date -format 'yyyy-MM-dd') + '.7z'
-
-        Write-Output "Method is $Method "
-        Write-Output "output file is $archive "
+        Write-Output "$Method files from/to $archive using 7zip"
 
     }
 
     PROCESS {
-        
-        Read-Host "gay?"
 
         switch ($Method) 
             { 
@@ -41,7 +73,7 @@
                     & $tool d -mx9 -scsUTF-8 $archive $Path 
                 } 
                 Extract {
-                    & $tool x -mx9 -scsUTF-8 $archive -o$Path -y
+                    & $tool x -mx9 -scsUTF-8 $archive -o"$Path" -y
                 } 
                 Test {
                     & $tool t -mx9 -scsUTF-8 $archive
@@ -67,7 +99,7 @@ $a = Get-ChildItem -Path "C:\Users\HaroldFinch\Desktop\2017-04-21.7z"
 Test-Path $a -include *.zip,*.7z
 $tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "7z.exe" -Recurse  )
 
-& $tool x -mx9 -scsUTF-8 "C:\Users\HaroldFinch\Desktop\2017-04-21.7z"  -o"C:\Users\HaroldFinch\Pictures\" 
+& $tool x -mx9 -scsUTF-8 "C:\Users\HaroldFinch\Desktop\2017-04-21.7z"  -o"C:\Users\HaroldFinch\Pictures\demo\test" -y
 
 
 
