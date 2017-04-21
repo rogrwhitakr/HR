@@ -98,6 +98,25 @@ $tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${e
 & $tool a -mx9 -scsUTF-8 "C:\Users\HaroldFinch\Desktop\zipfile.7z" $file1
 & $tool e -mx9 -scsUTF-8 -o 
 
+$pinfo = New-Object System.Diagnostics.ProcessStartInfo
+$pinfo.FileName = '$tool x -mx9 -scsUTF-8 "C:\Users\HaroldFinch\Desktop\2017-04-21.7z"  -o"C:\Users\HaroldFinch\Pictures\demo" -y'
+$pinfo.RedirectStandardError = $true
+$pinfo.RedirectStandardOutput = $true
+$pinfo.UseShellExecute = $false
+$pinfo.Arguments = ""
+$p = New-Object System.Diagnostics.Process
+$p.StartInfo = $pinfo
+$p.Start() | Out-Null
+$p.WaitForExit()
+$output = $p.StandardOutput.ReadToEnd()
+$output += $p.StandardError.ReadToEnd()
+$output | Out-File $myLog -Append
+
+#====>
+# das hier geht !!!!!
+Start-Process -FilePath $tool -ArgumentList 'x', '-mx9','-scsUTF-8 ', '"C:\Users\HaroldFinch\Desktop\2017-04-21.7z"', '-o"C:\Users\HaroldFinch\Pictures\demo"', '-y'
+#====>
+
 
 <Commands>
   a: Add files to archive
