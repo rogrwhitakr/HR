@@ -43,28 +43,25 @@ function Get-WinSCP {
             $tool = 'assign the path to executable manually'
             $dll = 'assign the path to dll manually'
         }           
-        Write-Output "$Method files from/to $archive using 7zip"
+        Write-Output "Tool:$tool"
+        Write-Output "Dll :$dll"
     }
 
     catch {
     
         $ErrorMessage = $_.Exception.Message
-        Write-Output "An Error occurred. Please assign the Path to the Executable 7zip."
+        Write-Output "An Error occurred. Please assign the Path to the Executable."
         Write-Output $ErrorMessage
     
     }
 
 }
 
- 
-$winscppath = "C:\Program Files\WinSCP\"
-$winscpnet = "WinSCPnet.dll"
- 
-#check if WinSCPnet.dll is available
- 
-$dll = $winscppath + $winscpnet
- 
-if ( ( Test-Path $dll ) -eq $false ) {
+Get-WinSCP
+
+#----------------------------------------------------------[WinSCP]----------------------------------------------------------
+#
+#   TODO: incorporate into Get-WinSCP
  
     $url = "https://winscp.net/download/WinSCP-5.9.4-Automation.zip"
    
@@ -95,24 +92,19 @@ if ( ( Test-Path $dll ) -eq $false ) {
 else {
     Write-Output "found $winscpnet in $winscppath"
 }
-#----------------------------------------------------------[WinSCP]----------------------------------------------------------
- 
- 
-    $url = "https://winscp.net/download/WinSCP-5.9.4-Automation.zip"
-Select-String -InputObject $url -Pattern "*.zip"
+
  
 #----------------------------------------------------------[WinSCP]----------------------------------------------------------
  
-gci env: | Where-Object -Property Path | select -ExpandProperty value
  
 Add-Type -Path $dll
  
 $sessionOptions = New-Object WinSCP.SessionOptions -Property @{
     Protocol = [WinSCP.Protocol]::Sftp
-    HostName = "192.168.100.179"
-    UserName = "admin"
-    Password = "asder123"
-    SshHostKeyFingerprint = "ssh-ed25519 256 8c:fa:83:63:4d:aa:b6:06:6c:44:0b:ab:af:ce:bd:bd"
+    HostName = "192.168.150.254"
+    UserName = "Administrator"
+    Password = "vasques"
+    SshHostKeyFingerprint = "SHA256:QDC6jbMl9Sxzp95nz2qzbn/W6lL6lWM+QT/66qartQY"
 }
  
 $session = New-Object WinSCP.Session
@@ -136,3 +128,6 @@ finally {
  
  #   exit 0
 }
+The authenticity of host '192.168.150.254 (192.168.150.254)' can't be established.
+ECDSA key fingerprint is SHA256:QDC6jbMl9Sxzp95nz2qzbn/W6lL6lWM+QT/66qartQY.
+ECDSA key fingerprint is MD5:5c:fc:1b:24:1b:f0:44:56:6d:ba:05:5c:f4:d3:fd:44.
