@@ -30,15 +30,32 @@
 #Set Error Action to Silently Continue
 $ErrorActionPreference = "SilentlyContinue"
  
-#Dot Source required Function Libraries
-. "C:\Scripts\Functions\Logging_Functions.ps1"
- 
-#param (
-  #  $localPath = "C:\OT_Kunden"
-#   $remotePath = "/home/user/"
-#)
  
 #----------------------------------------------------------[Declarations]----------------------------------------------------------
+
+function Get-WinSCP {
+
+    try {
+        $tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "WinSCP.exe" -Recurse  ) 
+        $dll = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "WinSCPnet.dll" -Recurse  ) 
+        
+        if (((Test-Path $tool ) -ne $true ) -or ((Test-Path $dll) -ne $true )) {
+            $tool = 'assign the path to executable manually'
+            $dll = 'assign the path to dll manually'
+        }           
+        Write-Output "$Method files from/to $archive using 7zip"
+    }
+
+    catch {
+    
+        $ErrorMessage = $_.Exception.Message
+        Write-Output "An Error occurred. Please assign the Path to the Executable 7zip."
+        Write-Output $ErrorMessage
+    
+    }
+
+}
+
  
 $winscppath = "C:\Program Files\WinSCP\"
 $winscpnet = "WinSCPnet.dll"
