@@ -36,8 +36,8 @@ $ErrorActionPreference = "SilentlyContinue"
 function Get-WinSCP {
 
     try {
-        $tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "WinSCP.exe" -Recurse  ) 
-        $dll = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "WinSCPnet.dll" -Recurse  ) 
+        $tool = Join-Path -Path ${env:ProgramFiles(x86)} -ChildPath ( Get-ChildItem -Path ${env:ProgramFiles(x86)} -Name "WinSCP.exe" -Recurse  ) 
+        $dll = Join-Path -Path ${env:ProgramFiles(x86)} -ChildPath ( Get-ChildItem -Path ${env:ProgramFiles(x86)} -Name "WinSCPnet.dll" -Recurse  ) 
         
         if (((Test-Path $tool ) -ne $true ) -or ((Test-Path $dll) -ne $true )) {
             $tool = 'assign the path to executable manually'
