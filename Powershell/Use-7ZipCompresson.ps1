@@ -84,7 +84,8 @@ Function Use-7ZipCompression {
                     & $tool d -mx9 -scsUTF-8 $archive $Path 
                 } 
                 Extract {
-                    & $tool x -mx9 -scsUTF-8 $archive -o"$Path" -y
+                    #& $tool x -mx9 -scsUTF-8 $archive -o"$Path" -y
+                    Start-Process -FilePath $tool -ArgumentList 'x', '-mx9','-scsUTF-8 ', $archive, '-o$Path', '-y'
                 } 
                 Test {
                     & $tool t -mx9 -scsUTF-8 $archive
