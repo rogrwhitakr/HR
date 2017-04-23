@@ -57,9 +57,20 @@ Function Use-7ZipCompression {
 
     BEGIN {
 
-        $tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "7z.exe" -Recurse  )     
-        Write-Output "$Method files from/to $archive using 7zip"
+        try {
+        
+            $tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name "7z.exe" -Recurse  )     
+            Write-Output "$Method files from/to $archive using 7zip"
+        
+        }
 
+        catch {
+
+            $ErrorMessage = $_.Exception.Message
+            Write-Output "An Error occurred. Please assign the Path to the Executable 7zip."
+            Write-Output $ErrorMessage
+
+        }
     }
 
     PROCESS {
