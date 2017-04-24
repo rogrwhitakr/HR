@@ -36,7 +36,7 @@ $ErrorActionPreference = "SilentlyContinue"
 function Get-WinSCP {
 
     try {
-        $tool = Join-Path -Path ${env:ProgramFiles(x86)} -ChildPath ( Get-ChildItem -Path ${env:ProgramFiles(x86)} -Name "WinSCP.exe" -Recurse  ) 
+        $tool = Join-Path -Path ${env:ProgramFiles(x86)} -ChildPath ( Get-ChildItem -Path ${env:ProgramFiles(x86)} -Name "WinSCP.com" -Recurse  ) 
         $dll = Join-Path -Path ${env:ProgramFiles(x86)} -ChildPath ( Get-ChildItem -Path ${env:ProgramFiles(x86)} -Name "WinSCPnet.dll" -Recurse  ) 
         
         if (((Test-Path $tool ) -ne $true ) -or ((Test-Path $dll) -ne $true )) {
@@ -62,7 +62,20 @@ Get-WinSCP
 #----------------------------------------------------------[WinSCP]----------------------------------------------------------
 #
 #   TODO: incorporate into Get-WinSCP
+
+
+$tool = Join-Path -Path ${env:ProgramFiles(x86)} -ChildPath ( Get-ChildItem -Path ${env:ProgramFiles(x86)} -Name "WinSCP.com" -Recurse  ) 
+        $dll = Join-Path -Path ${env:ProgramFiles(x86)} -ChildPath ( Get-ChildItem -Path ${env:ProgramFiles(x86)} -Name "WinSCPnet.dll" -Recurse  ) 
  
+
+ Start-Process -FilePath $tool -WindowStyle Maximized
+ 
+ Get-ChildItem hklm:\software | `    ForEach-Object {
+        Get-ItemProperty $_.pspath| Select-Object *
+    }
+
+
+
     $url = "https://winscp.net/download/WinSCP-5.9.4-Automation.zip"
    
     try {
