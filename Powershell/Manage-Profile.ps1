@@ -4,6 +4,8 @@ $conf = "C:\repos\HR\Powershell\conf\profile.conf"
 
 #-----------------------------------------------------------[Execution]------------------------------------------------------------
 
+#---------------------------------------------------------[UserProfile]------------------------------------------------------------
+
 
 Clear-Host
 Write-Host -ForegroundColor Cyan "Powershell Profile Creation and Fill`n"
@@ -58,20 +60,12 @@ catch {
 }
 
 
+#---------------------------------------------------------[Modules]------------------------------------------------------------
 
 
-
-
-
-#Write-Host -ForegroundColor Cyan "current profiles"
-#$profile | Format-List -Force
-Write-Host "Get-Help about_profiles`n==> full explanation of these paths. `n    The AllUsersAllHosts-profile is great if you want to`n    make a common set of functions or modules available to all users`n`n"
-
-
-Clear-Host
 Write-Host -ForegroundColor Cyan "Powershell Module Creation and Fill`n"
 
-Write-Host $env:psmodulepath
+Write-Host "Module-Paths:`n" ${env:psmodulepath}
 
 $read = Read-Host -Prompt 'Module? Yes / No'
 
@@ -85,3 +79,5 @@ if ( $read.Length -ne 0 ) {
 Write-Host "Appended psmodulepath ?"
 
 Write-Host $env:psmodulepath
+
+${env:modulepath}
