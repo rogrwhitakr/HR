@@ -1,3 +1,18 @@
+ # set conf location
+ 
+ $conf = "C:\repos\HR\Powershell\conf\profile.conf"
+ 
+ If ((Test-Path $conf) -ne $true) {
+    
+    Write-Error "
+    Error:
+        you must provide the path to the correct configuration file:
+        the file $conf does not exist"
+    Exit 1
+ 
+ }
+
+ Clear-Host
  Write-Host -ForegroundColor Cyan "Powershell Profile Creation and Fill
  "
 
@@ -7,9 +22,9 @@ try {
         New-Item -Path $profile -ItemType File -Force
     } 
 
-    If ((Test-Path $Profile) -eq $true) {
+    If ((Test-Path $profile) -eq $true) {
 
-        $a = Get-Content -Path C:\repos\HR\Powershell\conf\profile.conf
+        $a = Get-Content -Path $conf
 
         Set-Content -Path $profile -Value $a
 
@@ -36,4 +51,4 @@ Write-Host
     The AllUsersAllHosts-profile is great if you want to 
     make a common set of functions or modules available to all users"
 
-$comp = Compare-Object -ReferenceObject $(Get-Content $profile) `    -DifferenceObject $(Get-Content -Path C:\repos\HR\Powershell\conf\profile.conf)if ($comp.Equals(0)) {    Write-Host "success"        Write-Output $comp.count}$comp.count
+$comp = Compare-Object -ReferenceObject $(Get-Content $profile) -DifferenceObject $(Get-Content -Path $conf)if ($comp.Count -ne 0) {    Write-Host "do copy action here, because there are " $comp.count "changes"    Read-Host "Overwrite Powershell profile with profile.conf setting? Press Enter"}else {    Write-Host "do the regular thing"}
