@@ -15,3 +15,13 @@ If ((Test-Path $Profile) -eq $true) {
 ########################################################################################################
 # profile info in ~/profile/profile.config
 ########################################################################################################
+
+New-Alias Get-Help gh >> $profile
+new-item -path alias:subl -value 'C:\Program Files\Sublime\subl.exe' >> $profile
+
+########################################################################################################
+# profile directrory 
+########################################################################################################
+
+$base_dir = Get-ChildItem $profile -Directory
+$base_dir.DirectoryName
