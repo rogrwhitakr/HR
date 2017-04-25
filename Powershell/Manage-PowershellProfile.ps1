@@ -6,22 +6,15 @@ if ((Test-Path $profile) -eq $false) {
 
 If ((Test-Path $Profile) -eq $true) {
 
-   $profile_content = "
+    $a = Get-Content -Path C:\repos\HR\Powershell\conf\profile.conf
 
-    "
-    $profile_content >> $profile
+    Set-Content -Path $profile -Value $a
 }
-
-########################################################################################################
-# profile info in ~/profile/profile.config
-########################################################################################################
-
-New-Alias Get-Help gh >> $profile
-new-item -path alias:subl -value 'C:\Program Files\Sublime\subl.exe' >> $profile
-
 ########################################################################################################
 # profile directrory 
 ########################################################################################################
 
 $base_dir = Get-ChildItem $profile -Directory
 $base_dir.DirectoryName
+
+$a = Get-ChildItem -Path C:\repos\HR\Powershell\conf\profile.conf
