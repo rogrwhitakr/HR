@@ -1,20 +1,27 @@
 Write-Output "Powershell Profile Creation and Fill"
 
-if ((Test-Path $profile) -eq $false) {
-    New-Item -Path $profile -ItemType File -Force
-} 
+try {
 
-If ((Test-Path $Profile) -eq $true) {
+    if ((Test-Path $profile) -eq $false) {
+        New-Item -Path $profile -ItemType File -Force
+    } 
 
-    $a = Get-Content -Path C:\repos\HR\Powershell\conf\profile.conf
+    If ((Test-Path $Profile) -eq $true) {
 
-    Set-Content -Path $profile -Value $a
+        $a = Get-Content -Path C:\repos\HR\Powershell\conf\profile.conf
+
+        Set-Content -Path $profile -Value $a
+
+    Write-Output "Profile Creation complete"
+
+    }
 }
-########################################################################################################
-# profile directrory 
-########################################################################################################
 
-$base_dir = Get-ChildItem $profile -Directory
-$base_dir.DirectoryName
+catch {
 
-$a = Get-ChildItem -Path C:\repos\HR\Powershell\conf\profile.conf
+    $ErrorMessage = $_.Exception.Message
+    Write-Output "An Error occurred. Please assign the Path to the Executable 7zip."
+    Write-Output $ErrorMessage
+
+}
+
