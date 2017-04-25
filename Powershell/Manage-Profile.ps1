@@ -1,3 +1,28 @@
+#requires -version 2
+<#
+.SYNOPSIS
+    script to automate profile and module stuff
+
+.DESCRIPTION
+    
+
+.PARAMETER <Parameter_Name>
+    <Brief description of parameter input required. Repeat this attribute if required>
+
+.REQUIRED INPUTS
+    configuration files for profile and modules
+
+.OUTPUTS
+    $profile file and modules in user directory
+
+.NOTES
+    Version:        1.0
+    Author:         rogrwhitakr
+    Creation Date:  2017-05
+    Purpose/Change: PS set-up should be the same everywhere
+  
+#>
+
 #----------------------------------------------------------[Declarations]----------------------------------------------------------
 
 $conf = "C:\repos\HR\Powershell\conf\profile.conf"
