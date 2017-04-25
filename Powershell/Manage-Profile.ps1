@@ -137,21 +137,28 @@ if ((Test-Path -Path $mod_path) -ne $true ) {
 foreach ( $module in $modules ) {
 
     $container = Join-Path -Path $mod_path -ChildPath $module.BaseName
-    $path = New-Item -Path $container -ItemType Directory -Force
-    $file = Get-ChildItem -Path $path
-    
+     
     if ((Test-Path -Path $container) -eq $true)  {
 
-        Copy-Item -Path $module.FullName -Destination $container
-        Get-ChildItem -Path $container |`
-        Rename-Item -NewName { $_.BaseName + $_.Extension.Replace('.ps1', '.psd1') }
+        if (($container | Get-ChildItem -File).Length -gt 0) {
+        
+            Write-Host "do nothting"
+ hier passts noch nicht !!!"       
+        }
+        
+        else {
 
+            Copy-Item -Path $module.FullName -Destination $container
+            Get-ChildItem -Path $container |`
+            Rename-Item -NewName { $_.BaseName + $_.Extension.Replace('.ps1', '.psd1') }
+
+        }
     }
 }
 
 #---------------------------------------------------------[Modules]------------------------------------------------------------
 # remove all that is in Modules.
-
+"
 $delete_from = Get-ChildItem -Path "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
 
 $compare_against = $modules
