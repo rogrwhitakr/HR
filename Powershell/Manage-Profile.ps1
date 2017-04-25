@@ -113,17 +113,55 @@ if (( $read.Length -ne 0 ) -and ( $read.ToUpper() -cmatch 'YES')) {
 }
 
 
-#Write-Host $env:psmodulepath[17]
-#Write-Host $env:psmodulepath[2]
-#Write-Host $env:psmodulepath[3]
-#Write-Host $env:psmodulepath[4]
-#Write-Host $env:psmodulepath[5]
-#Write-Host $env:psmodulepath.Length
-#Write-Host $env:psmodulepath.Split(";")
-Write-Host $env:psmodulepath.Contains(${env:USERPROFILE})
+Write-Host "`n`n`n`n`nNEXT THINGS`n`n"
+
+# TODO get $mod_paths
+# $mod_path = ${env:USERPROFILE} + "\Documents\WindowsPowerShell\"
+
+# Write-Host $env:psmodulepath.Contains(${env:USERPROFILE})
 #${env:psmodulepath}.Replace(";","`n")
 
+#dest
+$mod_path = "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
 
-echo $module
+#here i get from
+$modules = Get-ChildItem -Path "C:\Users\HaroldFinch\Documents" -Filter "*.ps1"
 
+
+if ((Test-Path -Path $mod_path) -ne $true ) {
+
+    New-Item -Path $mod_path -ItemType Directory
+
+}
+
+foreach ( $module in $modules ) {
+
+    $container = Join-Path -Path $mod_path -ChildPath $module.BaseName
+    $path = New-Item -Path $container -ItemType Directory -Force
+    $file = Get-ChildItem -Path $path
+    
+    if ((Test-Path -Path $container) -eq $true)  {
+
+        Copy-Item -Path $module.FullName -Destination $container
+        Get-ChildItem -Path $container |`
+        Rename-Item -NewName { $_.BaseName + $_.Extension.Replace('.ps1', '.psd1') }
+
+    }
+}
+
+#---------------------------------------------------------[Modules]------------------------------------------------------------
+# remove all that is in Modules.
+
+$delete_from = Get-ChildItem -Path "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
+
+$compare_against = $modules
+
+foreach ( $module in $modules ) {
+foreach ($delete in $delete_from) {
+Compare-Object $delete_from -DifferenceObject $compare_against
+Write-Host $delete , $module
+}}
+if ($a.exists) {
+    Remove-Item $a
+}
 #---------------------------------------------------------[Modules]------------------------------------------------------------
