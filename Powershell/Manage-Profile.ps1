@@ -26,6 +26,7 @@
 #----------------------------------------------------------[Declarations]----------------------------------------------------------
 
 $conf = "C:\repos\HR\Powershell\conf\profile.conf"
+$module = "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
 
 #-----------------------------------------------------------[Execution]------------------------------------------------------------
 
@@ -60,10 +61,11 @@ try {
 
             Write-Host "The Powershell profile configuration file differs from the actual profile.`nThere are"$comp.Count "changes:"
             Compare-Object -ReferenceObject $(Get-Content $profile) -DifferenceObject $(Get-Content -Path $conf)
-            Read-Host "Overwrite Powershell profile with profile.conf settings? Press Enter"
+            
+            Read-Host -Prompt "Overwrite Powershell profile with profile.conf settings? Press Enter"
             Set-Content -Path $profile -Value $(Get-Content -Path $conf)
 
-            Write-Host -ForegroundColor Green "Profile contents inserted"
+            Write-Host -ForegroundColor Green "`$Profile contents modified"
 
         }
         else {
@@ -95,31 +97,33 @@ Write-Host "`nDo you need to append another path to this list? One that is " -No
 Write-Host "NOT" -NoNewline -ForegroundColor Red -BackgroundColor Yellow
 Write-Host " on the path?"
 
-$read = Read-Host -Prompt "`nYes / No"
+$read = Read-Host -Prompt "`nyes/no "
 
-if ( $read.Length -ne 0 ) {
+if (( $read.Length -ne 0 ) -and ( $read.ToUpper() -cmatch 'YES')) {
     
-    $mod_path = ${env:USERPROFILE} + "\Documents\WindowsPowerShell\" + $read
-    $env:psmodulepath = $env:psmodulepath + ";" + $mod_path
-    $mod_path = "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
+    Write-Host "Appending psmodulepath`ndo the appending....`netc"    
 
+    # TODO appending
+    #$mod_path = ${env:USERPROFILE} + "\Documents\WindowsPowerShell\"
+    #$mod_path = "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
+    #$env:psmodulepath = $env:psmodulepath + ";" + $mod_path
+    
+    Write-Host -ForegroundColor Green "psmodulepath appended"
+    Write-Host "Module-Paths:`n"${env:psmodulepath}.Replace(";","`n")
 }
 
-Write-Host -ForegroundColor Green "Appended psmodulepath?"
 
-Write-Host $env:psmodulepath
-Write-Host $env:psmodulepath[17]
-Write-Host $env:psmodulepath[2]
-Write-Host $env:psmodulepath[3]
-Write-Host $env:psmodulepath[4]
-Write-Host $env:psmodulepath[5]
-Write-Host $env:psmodulepath.Length
-Write-Host $env:psmodulepath.Split(";")
+#Write-Host $env:psmodulepath[17]
+#Write-Host $env:psmodulepath[2]
+#Write-Host $env:psmodulepath[3]
+#Write-Host $env:psmodulepath[4]
+#Write-Host $env:psmodulepath[5]
+#Write-Host $env:psmodulepath.Length
+#Write-Host $env:psmodulepath.Split(";")
 Write-Host $env:psmodulepath.Contains(${env:USERPROFILE})
-${env:psmodulepath}.Replace(";","`n")
+#${env:psmodulepath}.Replace(";","`n")
 
 
-
-$mod_path = "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
+echo $module
 
 #---------------------------------------------------------[Modules]------------------------------------------------------------
