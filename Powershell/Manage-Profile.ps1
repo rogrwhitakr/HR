@@ -64,20 +64,37 @@ catch {
 
 
 Write-Host -ForegroundColor Cyan "Powershell Module Creation and Fill`n"
+Write-Host "Module-Paths:`n"${env:psmodulepath}.Replace(";","`n")
 
-Write-Host "Module-Paths:`n" ${env:psmodulepath}
+Write-Host "`nDo you need to append another path to this list? One that is " -NoNewline
+Write-Host "NOT" -NoNewline -ForegroundColor Red -BackgroundColor Yellow
+Write-Host " on the path?"
 
-$read = Read-Host -Prompt 'Module? Yes / No'
+$read = Read-Host -Prompt "`nYes / No"
 
 if ( $read.Length -ne 0 ) {
     
     $mod_path = ${env:USERPROFILE} + "\Documents\WindowsPowerShell\" + $read
     $env:psmodulepath = $env:psmodulepath + ";" + $mod_path
+    $mod_path = "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
 
 }
 
-Write-Host "Appended psmodulepath ?"
+Write-Host -ForegroundColor Green "Appended psmodulepath?"
 
 Write-Host $env:psmodulepath
+Write-Host $env:psmodulepath[17]
+Write-Host $env:psmodulepath[2]
+Write-Host $env:psmodulepath[3]
+Write-Host $env:psmodulepath[4]
+Write-Host $env:psmodulepath[5]
+Write-Host $env:psmodulepath.Length
+Write-Host $env:psmodulepath.Split(";")
+Write-Host $env:psmodulepath.Contains(${env:USERPROFILE})
+${env:psmodulepath}.Replace(";","`n")
 
-${env:modulepath}
+
+
+$mod_path = "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
+
+#---------------------------------------------------------[Modules]------------------------------------------------------------
