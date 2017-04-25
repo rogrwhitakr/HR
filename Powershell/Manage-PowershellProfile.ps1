@@ -1,4 +1,5 @@
-Write-Output "Powershell Profile Creation and Fill"
+ Write-Host -ForegroundColor Cyan "Powershell Profile Creation and Fill
+ "
 
 try {
 
@@ -12,7 +13,8 @@ try {
 
         Set-Content -Path $profile -Value $a
 
-    Write-Output "Profile Creation complete"
+    Write-Host -ForegroundColor Green "Profile Creation complete
+    "
 
     }
 }
@@ -20,8 +22,16 @@ try {
 catch {
 
     $ErrorMessage = $_.Exception.Message
-    Write-Output "An Error occurred. Please assign the Path to the Executable 7zip."
-    Write-Output $ErrorMessage
+    Write-Host "An Error occurred. Please assign the Path to the Executable 7zip."
+    Write-Host $ErrorMessage
 
 }
 
+Write-Host -ForegroundColor Cyan "current profiles"
+$profile | Format-List -Force
+Write-Host 
+"Get-Help about_profiles 
+
+==> full explanation of these paths. 
+    The AllUsersAllHosts-profile is great if you want to 
+    make a common set of functions or modules available to all users"
