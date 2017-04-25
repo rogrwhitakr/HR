@@ -35,3 +35,5 @@ Write-Host
 ==> full explanation of these paths. 
     The AllUsersAllHosts-profile is great if you want to 
     make a common set of functions or modules available to all users"
+
+$comp = Compare-Object -ReferenceObject $(Get-Content $profile) `    -DifferenceObject $(Get-Content -Path C:\repos\HR\Powershell\conf\profile.conf)if ($comp.Equals(0)) {    Write-Host "success"        Write-Output $comp.count}$comp.count
