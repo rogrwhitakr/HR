@@ -136,39 +136,39 @@ if ((Test-Path -Path $mod_path) -ne $true ) {
 
 foreach ( $module in $modules ) {
 
-    $container = Join-Path -Path $mod_path -ChildPath $module.BaseName
-     
+   $container = New-Item -Path ( Join-Path -Path $mod_path -ChildPath $module.BaseName ) -ItemType Directory -Force
+    
     if ((Test-Path -Path $container) -eq $true)  {
-
-        if (($container | Get-ChildItem -File).Length -gt 0) {
         
-            Write-Host "do nothting"
- hier passts noch nicht !!!"       
-        }
-        
-        else {
+       # if ((Test-Path -Path     
+        Copy-Item -Path $module.FullName -Destination $container
+        Get-ChildItem -Path $container |`
+        Rename-Item -NewName { $_.BaseName + $_.Extension.Replace('.ps1', '.psd1') } -Force
 
-            Copy-Item -Path $module.FullName -Destination $container
-            Get-ChildItem -Path $container |`
-            Rename-Item -NewName { $_.BaseName + $_.Extension.Replace('.ps1', '.psd1') }
+    }
 
-        }
+    else {
+
+        $ErrorMessage = $_.Exception.Message
+        Write-Host "Could not create directory and / or move files"
+        Write-Host $ErrorMessage 
+               
     }
 }
 
 #---------------------------------------------------------[Modules]------------------------------------------------------------
 # remove all that is in Modules.
-"
-$delete_from = Get-ChildItem -Path "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
 
-$compare_against = $modules
+#$delete_from = Get-ChildItem -Path "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
 
-foreach ( $module in $modules ) {
-foreach ($delete in $delete_from) {
-Compare-Object $delete_from -DifferenceObject $compare_against
-Write-Host $delete , $module
-}}
-if ($a.exists) {
-    Remove-Item $a
-}
+#$compare_against = $modules
+
+#foreach ( $c in $modules ) {
+#foreach ($delete in $delete_from) {
+#Compare-Object $delete_from -DifferenceObject $compare_against
+#Write-Host $delete , $
+#}}
+#if ($a.exists) {
+#    Remove-Item $a
+#}
 #---------------------------------------------------------[Modules]------------------------------------------------------------
