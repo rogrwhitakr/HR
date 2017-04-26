@@ -115,17 +115,13 @@ if (( $read.Length -ne 0 ) -and ( $read.ToUpper() -cmatch 'YES')) {
 
 Write-Host "`n`n`n`n`nNEXT THINGS`n`n"
 
-# TODO get $mod_paths
-# $mod_path = ${env:USERPROFILE} + "\Documents\WindowsPowerShell\"
+#destination ($env:psmodulepath)
 
-# Write-Host $env:psmodulepath.Contains(${env:USERPROFILE})
-#${env:psmodulepath}.Replace(";","`n")
-
-#dest
 $mod_path = "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
 
-#here i get from
-$modules = Get-ChildItem -Path "C:\Users\HaroldFinch\Documents" -Filter "*.ps1"
+#here i get from (repo)
+# recurse works
+$modules = Get-ChildItem -Path "C:\Users\HaroldFinch\Pictures\demo" -Filter "*.ps1" -Recurse
 
 
 if ((Test-Path -Path $mod_path) -ne $true ) {
@@ -134,17 +130,27 @@ if ((Test-Path -Path $mod_path) -ne $true ) {
 
 }
 
+#---------------------------------------------------------[Modules]------------------------------------------------------------
+# this block makes 1 (ONE) directory for 1 (ONE) module file taken from a repository
+# modules in the directory NOT in the repo are left alone
+
 foreach ( $module in $modules ) {
 
    $container = New-Item -Path ( Join-Path -Path $mod_path -ChildPath $module.BaseName ) -ItemType Directory -Force
     
-    if ((Test-Path -Path $container) -eq $true)  {
-        
-       # if ((Test-Path -Path     
+    if ((Test-Path -Path $container) -eq $true)  {   
+     
+        if (($container.EnumerateFiles().Extension) -eq '.psd1') {
+
+            Remove-Item -Path $container.EnumerateFiles().fullname
+
+        }   
+
         Copy-Item -Path $module.FullName -Destination $container
         Get-ChildItem -Path $container |`
         Rename-Item -NewName { $_.BaseName + $_.Extension.Replace('.ps1', '.psd1') } -Force
 
+        Write-Host "Created Module "$container.Name
     }
 
     else {
@@ -156,19 +162,4 @@ foreach ( $module in $modules ) {
     }
 }
 
-#---------------------------------------------------------[Modules]------------------------------------------------------------
-# remove all that is in Modules.
-
-#$delete_from = Get-ChildItem -Path "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
-
-#$compare_against = $modules
-
-#foreach ( $c in $modules ) {
-#foreach ($delete in $delete_from) {
-#Compare-Object $delete_from -DifferenceObject $compare_against
-#Write-Host $delete , $
-#}}
-#if ($a.exists) {
-#    Remove-Item $a
-#}
-#---------------------------------------------------------[Modules]------------------------------------------------------------
+Write-Host -ForegroundColor Green "`nModule Creation complete `n"
