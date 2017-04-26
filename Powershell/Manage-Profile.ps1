@@ -4,8 +4,10 @@
     script to automate profile and module stuff
 
 .DESCRIPTION
-    
-
+    .VARIABLES
+        [STRING]conf        = the "configuration" file containing script stuff you want in your profile
+        [STRING]modules_dir = the repository containing Powershell scripts to be converted into Modules
+        [BOOLEAN]recurse    = $true if modules_dir contains subdirectories
 .PARAMETER <Parameter_Name>
     <Brief description of parameter input required. Repeat this attribute if required>
 
@@ -26,9 +28,8 @@
 #----------------------------------------------------------[Declarations]----------------------------------------------------------
 
 $conf = "C:\repos\HR\Powershell\conf\profile.conf"
-$module = "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
-
-#-----------------------------------------------------------[Execution]------------------------------------------------------------
+$modules_dir = "C:\repos\HR\Powershell"
+$recurse = $false
 
 #---------------------------------------------------------[UserProfile]------------------------------------------------------------
 
@@ -50,7 +51,9 @@ Write-Host -ForegroundColor Cyan "Powershell Profile Creation and Fill`n"
 try {
 
     if ((Test-Path $profile) -eq $false) {
-        New-Item -Path $profile -ItemType File -Force
+        New-Item -Path $profile -ItemType File -Force | Out-Null
+        $date = (Get-Date -Format 'yyyy-MM-dd')
+        Set-Content -Path $profile -Value "#`n# Profile created on $date"
     } 
 
     If ((Test-Path $profile) -eq $true) {
@@ -80,7 +83,7 @@ try {
 
 catch {
 
-    $ErrorMessage = $_.Exception.Message
+    $ErrorMessage = $_.Exception
     Write-Host "An Error occurred. "
     Write-Host $ErrorMessage
 
@@ -91,13 +94,36 @@ catch {
 
 
 Write-Host -ForegroundColor Cyan "Powershell Module Creation and Fill`n"
-Write-Host "Module-Paths:`n"${env:psmodulepath}.Replace(";","`n")
 
+ If ((Test-Path $modules_dir) -ne $true) {
+    
+    Write-Error "
+    Error:
+    
+        you must provide the path to the correct directory
+        containing all files to be made into Modules:
+        the path $modules_dir does not exist
+        
+        " 
+    Exit 1
+ 
+ }
+
+#---------------------------------------------------------[ModulePath]------------------------------------------------------------
+
+#############################################################################
+#
+#   TODO psmodulepath appending
+#   not needed for my case, though
+#
+#############################################################################
+
+Write-Host "Module-Paths:`n"${env:psmodulepath}.Replace(";","`n")
 Write-Host "`nDo you need to append another path to this list? One that is " -NoNewline
 Write-Host "NOT" -NoNewline -ForegroundColor Red -BackgroundColor Yellow
 Write-Host " on the path?"
 
-$read = Read-Host -Prompt "`nyes/no "
+$read = Read-Host -Prompt "`ninsert yes/no"
 
 if (( $read.Length -ne 0 ) -and ( $read.ToUpper() -cmatch 'YES')) {
     
@@ -112,27 +138,42 @@ if (( $read.Length -ne 0 ) -and ( $read.ToUpper() -cmatch 'YES')) {
     Write-Host "Module-Paths:`n"${env:psmodulepath}.Replace(";","`n")
 }
 
-
-Write-Host "`n`n`n`n`nNEXT THINGS`n`n"
-
-#destination ($env:psmodulepath)
-
-$mod_path = "C:\Users\HaroldFinch\Documents\WindowsPowerShell\Modules"
-
-#here i get from (repo)
-# recurse works
-$modules = Get-ChildItem -Path "C:\Users\HaroldFinch\Pictures\demo" -Filter "*.ps1" -Recurse
-
-
-if ((Test-Path -Path $mod_path) -ne $true ) {
-
-    New-Item -Path $mod_path -ItemType Directory
-
-}
-
 #---------------------------------------------------------[Modules]------------------------------------------------------------
 # this block makes 1 (ONE) directory for 1 (ONE) module file taken from a repository
 # modules in the directory NOT in the repo are left alone
+
+
+#############################################################################
+#
+#    TODO Make a list of suitable scripts to copy?
+#    TODO Execution Policies
+#    TODO get the psmodulepath dynamically
+#
+#############################################################################
+#
+# 0 = userpath
+# https://blogs.technet.microsoft.com/heyscriptingguy/2012/05/21/understanding-the-six-powershell-profiles/
+#
+#############################################################################
+
+$mod_path = ${env:psmodulepath}.Split(';')[0]
+
+if ($recurse -eq $true ){  
+
+    $modules = Get-ChildItem -Path $modules_dir -Filter "*.ps1" -Recurse
+}
+else {
+
+    $modules = Get-ChildItem -Path $modules_dir -Filter "*.ps1"
+}
+
+if ((Test-Path -Path $mod_path) -ne $true ) {
+
+    New-Item -Path $mod_path -ItemType Directory | Out-Null
+    Write-Host -ForegroundColor Green "`nCreated Path "$mod_path
+}
+
+Write-Host "`nCreating Powershell Modules in $mod_path`n"
 
 foreach ( $module in $modules ) {
 
