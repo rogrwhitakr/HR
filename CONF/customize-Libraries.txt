@@ -4,4 +4,4 @@ Roaming\Microsoft\Windows\Libraries
 
 insert 
 
-  <iconReference>%userprofile%\Pictures\optitool.ico</iconReference>
+  <iconReference>%userprofile%\Pictures\icon.ico</iconReference>
