@@ -123,7 +123,7 @@ Write-Host "`nDo you need to append another path to this list? One that is " -No
 Write-Host "NOT" -NoNewline -ForegroundColor Red -BackgroundColor Yellow
 Write-Host " on the path?"
 
-$read = Read-Host -Prompt "`ninsert yes/no"
+$read = Read-Host -Prompt "`n(yes|no)"
 
 if (( $read.Length -ne 0 ) -and ( $read.ToUpper() -cmatch 'YES')) {
     
