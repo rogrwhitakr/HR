@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PowerShell>
+	<Modules>
+		<Module name="applications">
+			<File name="Use-WinSCP" />
+			<File name="Use-7ZipCompresson"/>
+		</Module>
+		<Module name="XML">
+			<File name="Get-XMLSetting"/>
+		</Module>
+	</Modules>
+</PowerShell>
