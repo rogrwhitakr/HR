@@ -65,11 +65,12 @@
             
             }                  
             List {
-                Start-Process -FilePath $tool -ArgumentList 'u', '-mx9', '-scsUTF-8', $archive, $Path
-            
+                $list = Start-Process -FilePath $tool -ArgumentList 'list', 'vms', '-l'
+                $list | Format-List
             } 
             ListRunningVMs {
                 Start-Process -FilePath $tool -ArgumentList 'list', 'runningvms', '-l'
+                pause
             
             } 
             default {
@@ -79,3 +80,10 @@
         }
     }
 }
+
+Use-Virtualbox -Method List -VirtualMachine *
+Use-Virtualbox -Method Start -VirtualMachine server
+Use-Virtualbox -Method Pause -VirtualMachine server
+
+$tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name ".\VBoxManage.exe" -Recurse  )
+Start-Process -FilePath $tool -ArgumentList 'list', 'vms', '-l'| Out-String
