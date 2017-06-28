@@ -81,7 +81,8 @@
     }
 }
 
-Use-Virtualbox -Method List -VirtualMachine *
+Use-Virtualbox -Method ListRunningVMs -VirtualMachine server
+Use-Virtualbox -Method List -VirtualMachine server
 Use-Virtualbox -Method Start -VirtualMachine server
 Use-Virtualbox -Method Pause -VirtualMachine server
 
