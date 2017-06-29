@@ -4,7 +4,7 @@
 
         [String]
         [Parameter( Mandatory = $true, ValueFromPipeline = $true, Position = 0, HelpMessage = "Action")] 
-        [ValidateSet("Start", "Stop", "Pause", "Resume", "Reset", "List", "ListRunningVMs")]     
+        [ValidateSet("Start", "Stop", "Pause", "Resume", "Reset")]     
         $Method,
 
         [String]
@@ -41,7 +41,7 @@
         switch ($Method) { 
             Start {
                 if ( $Headless -eq $true ) {
-                    Start-Process -FilePath $tool -ArgumentList 'startvm', $VirtualMachine , '--type', 'headless' -NoNewWindow
+                    Start-Process -FilePath $tool -ArgumentList 'startvm', $VirtualMachine , '--type', 'headless' 
                 }
                 else {
                     Start-Process -FilePath $tool -ArgumentList 'startvm', $VirtualMachine
@@ -64,15 +64,6 @@
                 Start-Process -FilePath $tool -ArgumentList 'controlvm', $VirtualMachine , 'reset'
             
             }                  
-            List {
-                $list = Start-Process -FilePath $tool -ArgumentList 'list', 'vms', '-l'
-                $list | Format-List
-            } 
-            ListRunningVMs {
-                Start-Process -FilePath $tool -ArgumentList 'list', 'runningvms', '-l'
-                pause
-            
-            } 
             default {
                 Write-Output "No method selected."
                 exit 1
@@ -81,10 +72,41 @@
     }
 }
 
-Use-Virtualbox -Method ListRunningVMs -VirtualMachine server
-Use-Virtualbox -Method List -VirtualMachine server
-Use-Virtualbox -Method Start -VirtualMachine server
-Use-Virtualbox -Method Pause -VirtualMachine server
+Use-Virtualbox -Method Stop -VirtualMachine gnome
 
-$tool = Join-Path -Path ${env:ProgramW6432} -ChildPath ( Get-ChildItem -Path ${env:ProgramW6432} -Name ".\VBoxManage.exe" -Recurse  )
-Start-Process -FilePath $tool -ArgumentList 'list', 'vms', '-l'| Out-String
+$tool | gm
+$loc = gci $tool
+
+(Get-ChildItem -Path $tool).DirectoryName
+
+Set-Location $loc.DirectoryName
+
+# Setup the Process startup info
+$pinfo = New-Object System.Diagnostics.ProcessStartInfo
+$pinfo.FileName = ".\VBoxManage.exe"
+$pinfo.Arguments = "list vms"
+$pinfo.WorkingDirectory = (Get-ChildItem -Path $tool).DirectoryName
+
+$pinfo.UseShellExecute = $false
+$pinfo.CreateNoWindow = $false
+$pinfo.RedirectStandardOutput = $true
+$pinfo.RedirectStandardError = $true
+
+ # Create a process object using the startup info
+$process = New-Object System.Diagnostics.Process
+$process.StartInfo = $pinfo
+ # Start the process
+$process.Start()
+
+# Wait a while for the process to do something
+sleep -Seconds 1
+
+# If the process is still active kill it
+if (!$process.HasExited) {
+    $process.Kill()
+}
+ # get output from stdout and stderr
+$stdout = $process.StandardOutput.ReadToEnd()
+$stderr = $process.StandardError.ReadToEnd()
+
+Write-Output $stdout,$stderr
