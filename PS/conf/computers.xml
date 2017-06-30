@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Computers>
+	<VMs>
+		<Computer name="Computer 1" operatingSystem="Microsoft Windows 10" otherAttribute="demo"/>
+		<Computer name="Computer 2" operatingSystem="Microsoft Windows 10" otherAttribute="more demo"/>
+		<Computer name="Computer 3" operatingSystem="Microsoft Windows 7" otherAttribute="even more"/>
+	</VMs>
+</Computers>
