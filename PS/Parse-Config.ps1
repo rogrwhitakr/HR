@@ -61,13 +61,13 @@ Write-Host "RUN_1" -BackgroundColor DarkRed
 $VirtualBox = Parse-Config -ConfigurationFile "C:\Users\HaroldFinch\.VirtualBox\VirtualBox.xml"
 
 Write-Host "RUN_2" -BackgroundColor DarkRed
-$customConfig = Parse-Config -ConfigurationFile "modules.xml"
+$customConfig = Parse-Config -ConfigurationFile "computers.xml"
  
 Write-Host "RUN_3_WRITING_CONFIG_TO_VARIABLE" -BackgroundColor DarkRed
-$computers = Parse-Config -ConfigurationFile "C:\repos\HR\Powershell\conf\modules.xml"
+$computers = Parse-Config -ConfigurationFile "C:\repos\HR\PS\conf\modules.xml"
 
 Write-Host "CustomConfig" -BackgroundColor Green
-Write-Host $customConfig
+Write-Host $customConfig.Attributes
 
 Write-Host "VirtualBox" -BackgroundColor Green 
 Write-Host $VirtualBox.VirtualBox.Global.MachineRegistry.MachineEntry.uuid
@@ -78,9 +78,9 @@ Write-Host $VirtualBox.VirtualBox.Global.SystemProperties.defaultMachineFolder
  
 Write-Host "LOOPING_XML" -BackgroundColor DarkRed
 
-foreach( $computer in $customConfig.configuration.computers.target)
+foreach( $computer in $customConfig.Computers.VMs.ChildNodes )
 {
-    Write-Host $computer
+    Write-Host $computer.Name
 } 
 
 function Get-ScriptPath {
@@ -105,9 +105,7 @@ $customConfig.PowerShell.Modules.Module.File | Get-Member | Select-Object * | Fo
 
 $customConfig.PowerShell.GetAttribute('name').ToString() | gm
 
-Set-Alias -Name gn -Value "Get-Member | Select-Object * | Format-List" | out-null
 
-Get-Alias | gn
 
 function gn {
     [CmdletBinding()]
@@ -117,6 +115,21 @@ function gn {
         ValueFromPipelineByPropertyName=$true)]
         [System.Object]$Object
         )
+try {
+    $obj = $Object
+    $gm = $obj | Get-Member
+    $select = $gm | Select-Object *
+    $list = $select | Format-List
+    return $list
+    }
+    catch {
+ 
+        $ErrorMessage = $_.Exception.Message
+        Write-Output "ERROR: "$ErrorMessage"`n" $_.Exception.ErrorDetails
+        Write-Output "DETAILS:" $_.Exception.ErrorDetails
+    
+        }
 
-    $Object | Get-Member | Select-Object * | Format-List
 }
+
+get-help | gn
