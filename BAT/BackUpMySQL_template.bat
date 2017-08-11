@@ -22,7 +22,7 @@ setlocal ENABLEDELAYEDEXPANSION
 ::
 ::	Version History 
 ::  	1.0	
-::			2017-02-17	Benno Osterholt	
+::			2017-02-17	rogrwhitakr
 ::			add description, template stuff 
 ::
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

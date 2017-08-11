@@ -1,20 +1,7 @@
 @echo on
 
 rem ==========================================================
-rem Script | backup of MySQL database(s)
-rem	* erstellt einen MySQL-dump
-rem	* erstellt ein Backup - Verzeichnis
-rem	* zippt das backup mit 7Zip und verschiebt es
-rem ==========================================================
-rem Variables
-rem * sql_path = Pfad der MySQL - Installation
-rem * zip_path = Pfad der 7Zip - Installation
-rem * db_name = Name DB
-rem * db_backup = Name der Backup - Datei 
-rem * angeben, wenn MEHRERE Datenbanken (z.B. PRODUKTIV
-rem	  und TEST) in BackUp - Datei sollen
-rem * time_var = Anzahl Monate, die behalten werden sollen
-rem	  Achtung! Nur die Zahl anpassen!
+rem 
 rem ==========================================================
 
 set zip_path=C:\Program Files\7-Zip\

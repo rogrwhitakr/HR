@@ -12,13 +12,13 @@ setlocal ENABLEDELAYEDEXPANSION
 ::
 ::	Version History 
 ::  	1.0	
-::			2017-02-14	Benno Osterholt	
+::			2017-02-14	rogrwhitakr	
 ::			initial version for starting VirtualBox VMs      
 ::  	1.1	
-::			2017-02-15	Benno Osterholt	
+::			2017-02-15	rogrwhitakr	
 ::			template batch file with title enabled      
 ::  	1.2	
-::			2017-02-15	Benno Osterholt	
+::			2017-02-15	rogrwhitakr	
 ::			add description, some documentation      
 ::
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
