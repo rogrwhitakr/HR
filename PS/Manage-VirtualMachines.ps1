@@ -27,6 +27,8 @@ function VM-StartUp {
     
 }
 
+VM-StartUp 
+
 function VM-Shutdown {
 
     $vms = Get-VBoxMachine
