@@ -37,3 +37,5 @@ function VM-Shutdown {
         Stop-VBoxMachine -Name $vm.ID -Verbose
     }
 }
+
+VM-Shutdown

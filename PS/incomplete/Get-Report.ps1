@@ -22,7 +22,7 @@ function Get-InstalledList {
         #out-file $reportlocation\$reporturl
 }
 
-function Create-Report {
+function New-Report {
     param (
       #  [Object] $SendtoReport = '*',
         [String] $ReportName = '*',
