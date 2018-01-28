@@ -18,7 +18,22 @@ $northernlights = @(
 'Admin'
 )
 
+$northernlights = @(
+'DNS-Server',
+'server',
+'Admin',
+'powershell-core'
+)
+
 function VM-StartUp {
+    
+    [CmdletBinding()]
+    param (
+
+        [Array]
+        [Parameter( Mandatory = $true, ValueFromPipeline = $true, Position = 0, HelpMessage = "Name of VirtualBox VM")] 
+        $VirtualMachineName
+    )
 
     foreach ($light in $northernlights) {
         Start-VBoxMachine -Name $light -Headless -Verbose
@@ -27,7 +42,7 @@ function VM-StartUp {
     
 }
 
-VM-StartUp 
+VM-StartUp -VirtualMachineName $northernlights
 
 function VM-Shutdown {
 
