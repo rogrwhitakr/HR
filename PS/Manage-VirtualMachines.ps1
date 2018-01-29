@@ -7,22 +7,22 @@
 # move these to a config file, maybe?
 
 $northernlights = @(
-'dns',
-'server',
-'DNS-Server',
-'Mail-Server',
-'ubuntu-server',
-'SMB-Server',
-'dnsmasq',
-'powershell-core',
-'Admin'
+    'dns',
+    'server',
+    'DNS-Server',
+    'Mail-Server',
+    'ubuntu-server',
+    'SMB-Server',
+    'dnsmasq',
+    'powershell-core',
+    'Admin'
 )
 
 $northernlights = @(
-'DNS-Server',
-'server',
-'Admin',
-'powershell-core'
+    'DNS-Server',
+    'server',
+    'Admin',
+    'powershell-core'
 )
 
 function VM-StartUp {
