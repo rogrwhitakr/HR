@@ -15,7 +15,8 @@ $northernlights = @(
     'SMB-Server',
     'dnsmasq',
     'powershell-core',
-    'Admin'
+    'Admin',
+    'smba'
 )
 
 $northernlights = @(
@@ -36,7 +37,7 @@ function VM-StartUp {
     )
 
     foreach ($light in $northernlights) {
-        Start-VBoxMachine -Name $light -Headless -Verbose
+        Start-VBoxMachine -Name $light -Headless
         Start-Sleep -Verbose -Seconds 2
     }
     
