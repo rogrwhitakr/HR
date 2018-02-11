@@ -16,7 +16,7 @@ $northernlights = @(
     'dnsmasq',
     'powershell-core',
     'Admin',
-    'smba'
+    'samba'
 )
 
 $northernlights = @(
