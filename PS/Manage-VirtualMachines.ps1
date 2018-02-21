@@ -26,7 +26,7 @@ $northernlights = @(
     'powershell-core'
 )
 
-function VM-StartUp {
+function Start-Northernlights {
     
     [CmdletBinding()]
     param (
@@ -45,7 +45,7 @@ function VM-StartUp {
 
 VM-StartUp -VirtualMachineName $northernlights
 
-function VM-Shutdown {
+function Stop-Northernlights {
 
     $vms = Get-VBoxMachine
 
