@@ -6,6 +6,8 @@
 # https://msdn.microsoft.com/en-us/library/dd878337(v=vs.85).aspx
 # Generated on: 1/24/2012
 #
+# guter explainer:
+# https://www.codykonior.com/2018/02/20/populating-powershell-module-functionstoexport-automatically/
 
 @{
 
