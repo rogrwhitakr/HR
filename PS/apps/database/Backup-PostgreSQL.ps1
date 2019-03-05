@@ -1,55 +1,77 @@
-function Backup-Postgresql {
+function Find-Executable {
     param (
-
-    [String]
-    [Parameter( Mandatory = $true, ValueFromPipeline = $true, HelpMessage = "Compression Method")] 
-    [ValidateNotNullOrEmpty()]
-    $DatabaseServerHost,
-
-    [Int]
-    [Parameter( Mandatory = $false, ValueFromPipeline = $true, HelpMessage = "Port")] 
-    [ValidateRange(1,65123)]     
-    $Port,
-
-    [String]
-    [Parameter( Mandatory = $true, ValueFromPipeline = $true, HelpMessage = "Database")] 
-    [ValidateNotNullOrEmpty()]
-    $Database,
-
-    [String]
-    [Parameter( Mandatory = $true, ValueFromPipeline = $true, HelpMessage = "File/Directory to backup to")]
-    [ValidateScript({Test-Path $_ })]
-    $BackupPath
-
-)
+        [String]
+        [Parameter( Mandatory = $true, ValueFromPipeline = $true)] 
+        [ValidateNotNullOrEmpty()]
+        #        [ValidatePattern('*exe$')]
+        $Executable
+    )
+    # 1st we would look in the path
+    # if itrs there, awesome:
     try {
-
-        # we first look in 64 bit program files
-        $backup_tool = Get-ChildItem -Path ${env:ProgramFiles} -Name "pg_dump.exe" -Recurse | Select-Object -First 1
-
-        # if it is not empty, we assume we found it and prepend the full path
-        If ($backup_tool){
-            $backup_tool = Join-Path -Path ${env:ProgramW6432} -ChildPath (Get-ChildItem -Path ${env:ProgramFiles} -Name "pg_dump.exe" -Recurse | Select-Object -First 1)
-            Write-Verbose "found backup tool: $backup_tool in Program files"
+        if (get-command $Executable -ErrorAction SilentlyContinue) {
+            Write-Verbose "Found executable on environment paths (env:)"
+            return [System.IO.FileInfo] (get-command $Executable).Definition 
         }
-        # now we look in 32 bit programs
         else {
-            $backup_tool = Get-ChildItem -Path ${env:ProgramFiles(x86)} -Name "pg_dump.exe" -Recurse | Select-Object -First 1
-            If ($backup_tool){
-                $backup_tool = Join-Path -Path ${env:ProgramFiles(x86)} -ChildPath (Get-ChildItem -Path ${env:ProgramFiles(x86)} -Name "pg_dump.exe" -Recurse | Select-Object -First 1)
-                Write-Verbose "found backup tool: $backup_tool in Program files"
+            # we first look in 64 bit program files
+            $exec = Get-ChildItem -Path ${env:ProgramFiles} -Name $Executable -Recurse | Select-Object -First 1
+
+            # if it is not empty, we assume we found it and prepend the full path
+            If ($exec) {
+                $exec = Join-Path -Path ${env:ProgramFiles} -ChildPath (Get-ChildItem -Path ${env:ProgramFiles} -Name $Executable -Recurse | Select-Object -First 1)
+                Write-Verbose "found executable (64-bit): $exec"
+                return [System.IO.FileInfo] $exec
             }
+            # now we look in 32 bit programs
             else {
-                break
+                $exec = Get-ChildItem -Path ${env:ProgramFiles(x86)} -Name $Executable -Recurse | Select-Object -First 1
+                If ($exec) {
+                    $exec = Join-Path -Path ${env:ProgramFiles(x86)} -ChildPath (Get-ChildItem -Path ${env:ProgramFiles(x86)} -Name $Executable -Recurse | Select-Object -First 1)
+                    Write-Verbose "found executable (32-bit): $exec"
+                    return [System.IO.FileInfo] $exec
+                }
+                else {
+                    Write-Warning "no executable Found!"
+                    break
+                }
             }
         }
     }
     catch {
-        $ErrorMessage = $_.Exception.Message
-        Write-Error "Could not find the pg_dump binary! make sure it is installed (Program Files). $ErrorMessage"
-        break
+        Write-Error "$_"
     }
-    finally {
+}
+
+
+function Backup-Postgresql {
+    param (
+
+        [String]
+        [Parameter( Mandatory = $true, ValueFromPipeline = $true, HelpMessage = "Compression Method")] 
+        [ValidateNotNullOrEmpty()]
+        $DatabaseServerHost,
+
+        [Int]
+        [Parameter( Mandatory = $false, ValueFromPipeline = $true, HelpMessage = "Port")] 
+        [ValidateRange(1, 65123)]     
+        $Port,
+
+        [String]
+        [Parameter( Mandatory = $true, ValueFromPipeline = $true, HelpMessage = "Database")] 
+        [ValidateNotNullOrEmpty()]
+        $Database,
+
+        [String]
+        [Parameter( Mandatory = $true, ValueFromPipeline = $true, HelpMessage = "File/Directory to backup to")]
+        [ValidateScript( {Test-Path $_ })]
+        $BackupPath
+
+    )
+    try {
+
+        # first we get the backup tool
+        $backup_tool = Find-Executable -Executable "pg_dump.exe"
 
         # normalize stuffs
         if (!$Port) {
@@ -59,14 +81,16 @@ function Backup-Postgresql {
 
         # construct a path
         $date = (get-date).tostring("yyyy-MM-dd")
-        $backup = (Get-ChildItem -Path $BackupPath).DirectoryName
-        $backup = $backup + $date + "_" + $Database + ".sql"
+        $backup = $BackupPath + "\" + $date + "_" + $Database + ".sql"
         Write-Verbose "Backup @ $backup"
 
         # do the backup
-        Start-Process -FilePath $backup_tool -ArgumentList "--host=$DatabaseServerHost",  "--port=$Port", "--username=postgres", "--dbname=$Database", "--verbose", ">", "$backup"
+        Start-Process -FilePath $backup_tool.FullName -ArgumentList '-h', $DatabaseServerHost, '-p', $Port, '-U' , 'postgres', '-d', $Database, '-v' -RedirectStandardOutput $backup -WorkingDirectory $backup_tool.Directory -Wait -WindowStyle minimized
+        Write-Verbose -Message "backup complete"
     } 
+    catch {
+        "what"
+    }
 }
 
 Backup-Postgresql -DatabaseServerHost '192.168.0.200' -Database 'redmine' -BackupPath 'C:\Tools\database' -Verbose
-#pg_dump.exe --host=192.168.0.200 --username=postgres --dbname=redmine --verbose > C:\Tools\database\redmine.sql
