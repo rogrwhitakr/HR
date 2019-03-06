@@ -3,7 +3,7 @@ function Find-Executable {
         [String]
         [Parameter( Mandatory = $true, ValueFromPipeline = $true)] 
         [ValidateNotNullOrEmpty()]
-        #        [ValidatePattern('*exe$')]
+        [ValidatePattern('^[A-Za-z0-9].*?\.exe$')]
         $Executable
     )
 
@@ -35,7 +35,7 @@ function Find-Executable {
                     return [System.IO.FileInfo] $exec
                 }
                 else {
-                    Write-Warning "no executable Found!"
+                    Write-Warning "executable $executable not found!"
                     break
                 }
             }
@@ -46,7 +46,11 @@ function Find-Executable {
     }
 }
 
-# find-executable -executable 'javaws.exe' -Verbose 
-# find-executable -executable 'notepad++.exe' -Verbose
-# find-executable -executable 'pg_dumpall.exe' -Verbose
-# find-executable -executable '7z.exe' -Verbose
+ find-executable -executable 'mysql.exe' -Verbose 
+ find-executable -executable 'javaws.exe' -Verbose 
+ find-executable -executable 'notepad++.exe' -Verbose
+ find-executable -executable 'pg_dumpall.exe' -Verbose
+ find-executable -executable '7z.exe' -Verbose
+ # this one does not work because the executable is in "C:\Tools\something\else".
+ # how to handle?
+ find-executable -executable 'mtputty.exe' -Verbose
