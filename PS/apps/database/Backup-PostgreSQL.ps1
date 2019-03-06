@@ -3,7 +3,7 @@ function Find-Executable {
         [String]
         [Parameter( Mandatory = $true, ValueFromPipeline = $true)] 
         [ValidateNotNullOrEmpty()]
-        #        [ValidatePattern('*exe$')]
+        #        [ValidatePattern('^[A-Za-z0-9]\.exe$')]
         $Executable
     )
     # 1st we would look in the path
