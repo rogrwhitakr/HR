@@ -19,9 +19,9 @@ function Start-Northernlights {
 }
 
 $northernlights = @(
-    'DNS-Server',
-    'server',
-    'powershell-core'
+    'SQL',
+    'samba',
+    'redmine'
 )
 
 Start-Northernlights -VirtualMachineName $northernlights
