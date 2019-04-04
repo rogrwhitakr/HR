@@ -82,15 +82,25 @@ function Backup-Postgresql {
         # construct a path
         $date = (get-date).tostring("yyyy-MM-dd")
         $backup = $BackupPath + "\" + $date + "_" + $Database + ".sql"
+        $errorlog = $BackupPath + "\" + $date + "_" + $Database + ".error"
         Write-Verbose "Backup @ $backup"
 
         # do the backup
-        Start-Process -FilePath $backup_tool.FullName -ArgumentList '-h', $DatabaseServerHost, '-p', $Port, '-U' , 'postgres', '-d', $Database, '-v' -RedirectStandardOutput $backup -WorkingDirectory $backup_tool.Directory -Wait -WindowStyle minimized
-        Write-Verbose -Message "backup complete"
+        Start-Process -FilePath $backup_tool.FullName -ArgumentList '-h', $DatabaseServerHost, '-p', $Port, '-U' , 'postgres', '-d', $Database, '-v' -RedirectStandardOutput $backup -WorkingDirectory $backup_tool.Directory -Wait -WindowStyle minimized -RedirectStandardError $errorlog
+        
     } 
     catch {
-        "what"
+        break
+    }
+    finally {
+        if (Get-ChildItem -Path $errorlog) {
+            Write-Warning -Message "the process resulted in an error:"
+            get-content -Path $errorlog 
+            Remove-Item -Path $errorlog
+        }
+        Write-Verbose -Message "backup complete"
     }
 }
-
+Start-Transcript -Path 'C:\Tools\database\backup.log' -Append
 Backup-Postgresql -DatabaseServerHost '192.168.0.200' -Database 'redmine' -BackupPath 'C:\Tools\database' -Verbose
+Stop-Transcript
