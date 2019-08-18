@@ -21,7 +21,8 @@ function Start-Northernlights {
 $northernlights = @(
     'SQL',
     'samba',
-    'redmine'
+    'redmine',
+	'OpenStack'
 )
 
 Start-Northernlights -VirtualMachineName $northernlights
