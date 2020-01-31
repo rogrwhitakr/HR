@@ -102,5 +102,5 @@ function Backup-Postgresql {
     }
 }
 Start-Transcript -Path 'C:\Tools\database\backup.log' -Append
-Backup-Postgresql -DatabaseServerHost '192.168.0.200' -Database 'redmine' -BackupPath 'C:\Tools\database' -Verbose
+Backup-Postgresql -DatabaseServerHost '192.168.0.210' -Database 'postgres' -BackupPath 'C:\Tools\database' -Verbose
 Stop-Transcript
