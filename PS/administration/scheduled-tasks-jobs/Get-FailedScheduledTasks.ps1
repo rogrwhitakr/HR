@@ -1,6 +1,6 @@
 # lets do some service polling...
 # todo
-# - get specified scheduled task that does something in an optitool installation
+# - get specified scheduled task that does something in an northern-lights installation
 # - get its return status on a regulr basis
 # - trigger email alert in the event of retrun status != 0
 # 
