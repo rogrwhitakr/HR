@@ -12,31 +12,30 @@ foreach ($vm in $vms) {
 
     if ($vm.State -eq "Running") {
         Write-Warning -Message ('stopping running VM "{0}"' -f $vm.Name)
-        #Stop-VBoxMachine -Name $vm.Name
+        Stop-VBoxMachine -Name $vm.Name
         $stop_required = $true
     }
    
-    $stringBuilder = New-Object System.Text.StringBuilder
-    $stringBuilder.Append(" clonevm ")
-    $stringBuilder.Append($vm.Name)
-    $stringBuilder.Append(" --uuid ")
-    $stringBuilder.Append($uuid)
-    $stringBuilder.Append(" --basefolder ")
-    $stringBuilder.Append($backup_base_folder)
-    $stringBuilder.Append(" --name ")
-    $stringBuilder.Append($vm.Name + "-backup")
-    $stringBuilder.Append(" --mode=`"machine`" ")
+    $stringBuilder = New-Object System.Text.StringBuilder 
+    $stringBuilder.Append(" clonevm ") 
+    $stringBuilder.Append($vm.Name) 
+    $stringBuilder.Append(" --uuid ") 
+    $stringBuilder.Append($uuid) 
+    $stringBuilder.Append(" --basefolder ") 
+    $stringBuilder.Append($backup_base_folder) 
+    $stringBuilder.Append(" --name ") 
+    $stringBuilder.Append($vm.Name + "-backup") 
+    $stringBuilder.Append(" --mode=`"machine`" ") 
 
-    if ($vm.State -eq "Stopped") {
-        Write-Warning -Message ('starting clone process')
-        Start-Process -FilePath $vboxmanage -ArgumentList $cmd_string -NoNewWindow -Wait
-        Write-Warning -Message ('clone process complete')
-    }
 
-    if ($stop_required = $true){
+    Write-Warning -Message ('starting clone process')
+    Start-Process -FilePath $vboxmanage -ArgumentList $stringBuilder -NoNewWindow -Wait
+    Write-Warning -Message ('clone process complete')
+
+    if ($stop_required = $true) {
 
         Write-Warning -Message ('starting VM "{0}" again' -f $vm.Name)
-        # start vm again
+        Start-VBoxMachine -Name $vm.Name
         $stop_required = $false
     }
 }
