@@ -53,4 +53,5 @@ function Find-Executable {
  find-executable -executable '7z.exe' -Verbose
  # this one does not work because the executable is in "C:\Tools\something\else".
  # how to handle?
+ find-executable -executable 'vboxmanage.exe' -Verbose
  find-executable -executable 'mtputty.exe' -Verbose
