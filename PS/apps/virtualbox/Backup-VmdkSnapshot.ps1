@@ -1,22 +1,21 @@
 
+
 $backup_base_folder = "C:\Tools\backups"
-$vm_dir = "D:\VM\NorthernLights"
 $vboxmanage = "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+$vms = Get-VBoxMachine -All
+$stop_required = $false
 
-$vms =  Get-VBoxMachine -All
+foreach ($vm in $vms) {
 
-foreach ($vm in $vms){
-    'VM {0} is {1}' -f ($vm.Name, $vm.state)
+    $uuid = [guid]::NewGuid()
+    Write-Warning -Message ('VM {0} is {1}. new UUID is {2}' -f ($vm.Name, $vm.state, $uuid))
 
     if ($vm.State -eq "Running") {
-        #Stop-VBoxMachine -Name $vm.Name
         Write-Warning -Message ('stopping running VM "{0}"' -f $vm.Name)
+        #Stop-VBoxMachine -Name $vm.Name
+        $stop_required = $true
     }
-
-    $uuid =  [guid]::NewGuid()
-
-    'new UUID is {0}. continue?' -f ($uuid)
-
+   
     $stringBuilder = New-Object System.Text.StringBuilder
     $stringBuilder.Append(" clonevm ")
     $stringBuilder.Append($vm.Name)
@@ -29,11 +28,16 @@ foreach ($vm in $vms){
     $stringBuilder.Append(" --mode=`"machine`" ")
 
     if ($vm.State -eq "Stopped") {
-        'starting clone process'
-  #      Start-Process -FilePath $vboxmanage -ArgumentList "clonevm", $vm.Name ,"--uuid", $uuid , "--basefolder", $backup_base_folder, "--name", "($vm.Name +`"-backup`")", "--mode=machine" -NoNewWindow -Wait
-        Start-Process -FilePath $vboxmanage -ArgumentList $stringBuilder -NoNewWindow -Wait
-        'complete'
+        Write-Warning -Message ('starting clone process')
+        Start-Process -FilePath $vboxmanage -ArgumentList $cmd_string -NoNewWindow -Wait
+        Write-Warning -Message ('clone process complete')
     }
-    'loop over'
+
+    if ($stop_required = $true){
+
+        Write-Warning -Message ('starting VM "{0}" again' -f $vm.Name)
+        # start vm again
+        $stop_required = $false
+    }
 }
 
