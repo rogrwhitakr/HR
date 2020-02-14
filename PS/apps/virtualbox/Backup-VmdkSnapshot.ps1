@@ -6,6 +6,9 @@ $vms = Get-VBoxMachine
 $stop_required = $false
 $date = (Get-Date -Format 'yyyy-MM-dd')
 
+Start-Transcript -Path ($backup_base_folder + 'vm_backup.log') -Append
+Write-Verbose "Starting Backup of VirtualBox VM hard disks"
+
 foreach ($vm in $vms) {
 
     $uuid = [guid]::NewGuid()
@@ -42,3 +45,5 @@ foreach ($vm in $vms) {
     }
 }
 
+Write-Verbose "Backup of VirtualBox VM hard disks complete"
+Stop-Transcript
