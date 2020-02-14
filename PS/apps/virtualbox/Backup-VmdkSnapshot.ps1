@@ -2,8 +2,9 @@
 
 $backup_base_folder = "C:\Tools\backups"
 $vboxmanage = "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
-$vms = Get-VBoxMachine -All
+$vms = Get-VBoxMachine
 $stop_required = $false
+$date = (Get-Date -Format 'yyyy-MM-dd')
 
 foreach ($vm in $vms) {
 
@@ -13,6 +14,7 @@ foreach ($vm in $vms) {
     if ($vm.State -eq "Running") {
         Write-Warning -Message ('stopping running VM "{0}"' -f $vm.Name)
         Stop-VBoxMachine -Name $vm.Name
+        Start-Sleep -Seconds 300
         $stop_required = $true
     }
    
@@ -24,7 +26,7 @@ foreach ($vm in $vms) {
     $stringBuilder.Append(" --basefolder ") 
     $stringBuilder.Append($backup_base_folder) 
     $stringBuilder.Append(" --name ") 
-    $stringBuilder.Append($vm.Name + "-backup") 
+    $stringBuilder.Append( $date + "-" + $vm.Name) 
     $stringBuilder.Append(" --mode=`"machine`" ") 
 
 
@@ -35,7 +37,7 @@ foreach ($vm in $vms) {
     if ($stop_required = $true) {
 
         Write-Warning -Message ('starting VM "{0}" again' -f $vm.Name)
-        Start-VBoxMachine -Name $vm.Name
+        Start-VBoxMachine -Name $vm.Name -Headless
         $stop_required = $false
     }
 }

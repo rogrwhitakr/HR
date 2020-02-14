@@ -19,10 +19,13 @@ function Start-Northernlights {
 }
 
 $northernlights = @(
-    'SQL',
-    'samba',
+#    'SQL', removed, redmine has its own instance now
+    'Auth',
     'redmine',
-	'OpenStack'
+#	'OpenStack', not atm!
+	'ELK',
+    'Admin',
+    'PFSENSE'
 )
 
 Start-Northernlights -VirtualMachineName $northernlights
