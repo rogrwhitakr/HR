@@ -30,7 +30,6 @@ Function Convert-Vmdk {
 
     if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
         'we aint admin. go check that level!!!' 
-        Pause
         exit
     }
 
@@ -49,4 +48,4 @@ Function Convert-Vmdk {
 
 }
 
-# Convert-Vmdk -source 'G:\_VM\Sales-Env\trp-354\oil-354.vmdk' -DestinationPath 'C:\VM\Windows7\'
+# Convert-Vmdk -source 'G:\northern-lights.vmdk' -DestinationPath 'C:\VM\Windows7\'
