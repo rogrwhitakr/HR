@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration>
+	<computers> 
+		<target> 
+			<Name>HankScorpio</Name> 
+		</target> 
+		<target> 
+			<Name>oil-355</Name> 
+		</target> 
+		<target> 
+			<Name>mlk-355</Name> 
+		</target> 
+		<target> 
+			<Name>bev-355</Name> 
+		</target> 
+	</computers>
+</configuration>

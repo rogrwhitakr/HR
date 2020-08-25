@@ -1,0 +1,25 @@
+Good Morning,
+
+The network password for {0} will expire in {1} days. Please change your password as soon as possible using the instructions below.
+
+From a computer on our network:
+1. Press Ctrl+Alt+Delete on your keyboard.
+2. Select "Change Password" from the menu.
+3. Enter your old password in the top box.
+4. Enter and confirm your new password.
+5. Click "Change."
+
+Complexity requirements:
+- Your password must be at least 15 characters in length.
+- Your password must contain three of the following four types of characters: lowercase letters, uppercase letters, numbers, and special characters (i.e. $, @, *, !)
+- Your password may not be one of the last 5 passwords you have used.
+- Your password may not contain your first name, last name, or username.
+
+Regards,
+IT Support
+
+This is a Demo Powershell demo
+
+2nd variables passed using -f: {2}
+3rd variables passed using -f: {3}
+4th variables passed using -f: {4}

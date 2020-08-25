@@ -1,0 +1,40 @@
+# using winscp 
+$FTP = @{
+    SessionOptions = @{
+        Protocol              = [WinSCP.Protocol]::Sftp
+        HostName              = 'u119042.your-storagebox.de'
+        UserName              = 'u119042'
+        Password              = 'wVprfeRDpZP0x1Fp'    
+        SshHostKeyFingerprint = "ssh-rsa 2048 3d:7b:6f:99:5f:68:53:21:73:15:f9:2e:6b:3a:9f:e3"
+
+    }
+    Session        = @{
+        remotePath = "/FTP/Administrator/SE/SEOUT/"
+    }
+}
+
+$DOWNLOAD = @{
+    SessionOptions = @{
+        Protocol              = [WinSCP.Protocol]::Sftp
+        HostName              = 'northern-lights.one'
+        UserName              = 'optito_0'
+        Password              = 'BuSiNeSs1FtP!'      
+        SshHostKeyFingerprint = "ssh-rsa 2048 66:46:7f:61:92:26:f0:11:4f:a6:de:c6:b2:79:18:e6"
+    }
+    Session        = @{
+        remotePath = "/Mitarbeiter/Administrator/"
+    }
+}
+
+$UPLOAD = @{
+    SessionOptions = @{
+        Protocol              = [WinSCP.Protocol]::Sftp
+        HostName              = 'northern-lights.one'
+        UserName              = 'optito_2'
+        Password              = 'Nif5zEg8'      
+        SshHostKeyFingerprint = "ssh-rsa 2048 66:46:7f:61:92:26:f0:11:4f:a6:de:c6:b2:79:18:e6"
+    }
+    Session        = @{
+        remotePath = "/"
+    }
+}
