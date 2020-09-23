@@ -14,6 +14,4 @@ Write-Host "-----------------------------------"
 # as vars
 [array]$IPs = Get-VM | Where-Object {$_.State -eq "running"} | Select-Object -ExpandProperty Networkadapters | Select-Object IPAddresses
 
-$IPs | Get-Member
-
 $IPs.Length
