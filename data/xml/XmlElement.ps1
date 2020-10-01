@@ -1,11 +1,11 @@
 
 
 # set and show what there is
-$env:XML = "C:\Users\Administrator\Desktop\se_opti4cast"
+$env:XML = "C:\Users\Administrator\Desktop\se_file"
 # Get-ChildItem -Path $env:XML
 
 # read in  file as System.Xml.XmlDocument
-$IN = [xml](Get-Content "$env:XML\opti4cast_TEST-Customers.xml")
+$IN = [xml](Get-Content "$env:XML\file_TEST-Customers.xml")
 
 # create a file to save to :: exists aready...
 Remove-Item -Path "$env:XML\OUT.xml" -ErrorAction SilentlyContinue

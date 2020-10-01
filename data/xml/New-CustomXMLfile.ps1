@@ -1,6 +1,6 @@
 
 # using the xmlreader (works)
-$IN = 'C:\Users\Administrator\Desktop\se_opti4cast\alterations\opti4cast_alterations.xml'
+$IN = 'C:\Users\Administrator\Desktop\file\alterations\filealterations.xml'
 $XmlReader = [system.Xml.XmlReader]::Create($IN) 
 
 # # Parse the XML document.  
@@ -19,11 +19,11 @@ $XmlReader.BaseURI
 "creating custom northern-lights format"
 
 # set and show what there is
-$env:XML = "C:\Users\Administrator\Desktop\se_opti4cast\alterations"
+$env:XML = "C:\Users\Administrator\Desktop\file\alterations"
 # Get-ChildItem -Path $env:XML
 
 # read in  file as System.Xml.XmlDocument
-$IN = [xml](Get-Content "$env:XML\opti4cast_alterations.xml")
+$IN = [xml](Get-Content "$env:XML\filealterations.xml")
 
 # get the nodes
 $filllevelRecords = $IN.DocumentElement.SelectNodes("//fillLevel").Count
@@ -34,7 +34,7 @@ $filllevelRecords = $IN.DocumentElement.SelectNodes("//fillLevel").Count
 
 
 # Set the File Name
-$OUT = "C:\Users\Administrator\Desktop\se_opti4cast\alterations\alteration_1.xml"
+$OUT = "C:\Users\Administrator\Desktop\file\alterations\alteration_1.xml"
  
 # Create The Document
 $XmlWriter = New-Object System.XMl.XmlTextWriter($OUT,$Null)
@@ -56,8 +56,6 @@ $xmlWriter.WriteStartElement('northern-lights')
   
 # Write the Document
 # it has 1347725 nodes
-#$xmlWriter.WriteStartElement(("<fillLevel storage="010" timestamp="2005-01-20T05:59:59.000+01:00" level="352"/>"))
-$xmlWriter.WriteRaw(('<fillLevel storage="010" timestamp="2005-01-20T05:59:59.000+01:00" level="352"/>').toString())
 
 $xmlWriter.WriteEndElement # <-- Closing Servers
   

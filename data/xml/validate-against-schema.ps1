@@ -1,4 +1,6 @@
-﻿ 
+﻿ # i have little recollection if this works at all
+
+
 Function Test-Xml{ 
     param(     
         [Parameter( 
@@ -98,8 +100,8 @@ $code = @'
 ################################################################ 
  
 #<example> 
-$schema = "C:\Users\Administrator\Desktop\otinterface.xsd" 
-[xml]$xml = Get-ChildItem 'C:\Users\Administrator\Desktop\\010_role_profiles_northern-lights_admin_operative.xml' 
+$schema = "C:\Desktop\api.xsd" 
+[xml]$xml = Get-ChildItem 'C:\Desktop\operative.xml' 
 Validate-Xml $xml $schema 
 #</example> 
  
@@ -152,14 +154,14 @@ PROCESS {
 
 Set-Location "$env:USERPROFILE\Desktop"
 
-$source = "http://northern-lights.one/otinterface.xsd"
-$xsd = Join-Path -Path (Get-Location) -ChildPath "otinterface.xsd"
+$source = "http://northern-lights.one/api.xsd"
+$xsd = Join-Path -Path (Get-Location) -ChildPath "api.xsd"
  
 Invoke-WebRequest $source -OutFile $xsd
 
 
-$schema = "C:\Users\Administrator\Desktop\otinterface.xsd" 
-$xmlFileName = Get-ChildItem 'C:\Users\Administrator\Desktop\northern-lights\010_role_profiles_northern-lights_admin_operative.xml' 
+$schema = "C:\Desktop\api.xsd" 
+$xmlFileName = Get-ChildItem 'C:\operative.xml' 
 
 # Check if the provided file exists
 if((Test-Path -Path $xmlFileName) -eq $false) {

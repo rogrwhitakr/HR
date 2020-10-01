@@ -1,6 +1,6 @@
 
 # using the xmlreader (works)
-$IN = 'C:\Users\Administrator\Desktop\se_opti4cast\alterations\opti4cast_alterations.xml'
+$IN = 'C:\Users\Administrator\Desktop\file\alterations\filealterations.xml'
 $XmlReader = [system.Xml.XmlReader]::Create($IN) 
 
 # # Parse the XML document.  
@@ -15,7 +15,7 @@ $XmlReader.
 "creating custom northern-lights format"
 
 # Set the File Name
-$OUT = "C:\Users\Administrator\Desktop\se_opti4cast\singled_customers.xml"
+$OUT = "C:\Users\Administrator\Desktop\file\singled_customers.xml"
  
 # Create The Document
 $XmlWriter = New-Object System.XMl.XmlTextWriter($OUT,$Null)
@@ -33,7 +33,7 @@ $XSLPropText = 'encoding="ISO-8859-1" standalone="yes"'
 $xmlWriter.WriteProcessingInstruction("xml-stylesheet", $XSLPropText)
 # Write Root Element
  
-$xmlWriter.WriteStartElement('northern-lights tenantExtId="OPTI4CAST"')
+$xmlWriter.WriteStartElement('northern-lights tenantExtId="id"')
   
 # Write the Document
 $xmlWriter.WriteStartElement("customer")
