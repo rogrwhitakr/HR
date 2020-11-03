@@ -1,3 +1,9 @@
+# one-liner
+
+Get-ChildItem *.failed | Rename-Item -NewName { $_.name -Replace '\.failed$','' }
+
+
+
 # DONE get list of extensions in dir
 
 $extensions = @()
