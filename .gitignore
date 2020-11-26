@@ -1,3 +1,4 @@
 files-folders-executables/cleanup/*
 files-folders-executables/*.xml
 data/log/*.log
+apps/database/postgresql/New-OTPostgreSQLBackup.ps1
