@@ -5,3 +5,4 @@ function Get-Configuration {
 
 $configuration = Get-Configuration
 
+$configuration.DefaultServerConfig.ServerName
