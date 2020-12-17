@@ -1,0 +1,1 @@
+C:\Program Files\PuTTY\putty.exe" user@server.com -pw password
