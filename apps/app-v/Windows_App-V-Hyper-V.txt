@@ -1,0 +1,21 @@
+App-V
+	Bereitstellung von Anwendungen für Endbenutzer, ohne diese Anwendungen direkt auf den Computern der Endbenutzer zu installieren
+	Programme zur Laufzeit verteilt 
+	App-V Server "streamt" die Software zum Rechner des Anwenders. Kurz nach Beginn des Streams kann der Anwender die Applikation benutzen, während im Hintergrund weitere Programmteile nachgeladen werden.
+	Bei entsprechender Installation kann der Benutzer sich irgendwo im Netzwerk an einen fast softwarefreien Rechner setzen und die Zusatzsoftware benutzen, da diese vom App-V Server nach Bedarf zum User gestreamt wird.
+	
+	App-V can make applications available to end user computers without having to install the applications directly on those computers. This is made possible through a process known as sequencing the application, which enables each application to run in its own self-contained virtual environment on the client computer. The sequenced applications are isolated from each other. This eliminates application conflicts, but the applications can still interact with the client computer
+	The App-V stack sandboxes the execution environment so that an application does not make changes directly to the underlying operating system's file system and/or Registry, but rather is contained in an application-specific "bubble". App-V applications are also sandboxed from each other, so that different versions of the same application can be run under App-V concurrently and so that mutually exclusive applications can co-exist on the same system.
+	
+	
+	Architektur
+		App-V Application Server |  Package Repository hostet Softwarepakete (Streaming Applications, User logging, etc.)
+			http(s) und SMB (in Versionen vor 5 = network share q:-drive musste festgelegt werden)
+		App-V Sequencer baut Pakete
+		App-V Client - runtime für streaming-pakete, Ausführung der Anwendung | clientseitig
+		App-V Publishing Server - Schnittstelle zwischen dem App-V Client und dem Management Server
+		App-V Management Server - Administrationspunkt, wird zum Verwalten der Umgebung genutzt
+			einzig der Management Server kommuniziert direkt mit der Datenbank 
+			als Web-Service auf einem IIS realisiert
+		Microsoft SQL-Server - 	sämtliche Informationen mit Ausnahme der eigentlichen Software-Pakete
+		(Meta-Informationen zu den Softwarepaketen, Konfigurationsinhalte zu den „Access Groups“, etc.)
