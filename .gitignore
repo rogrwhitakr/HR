@@ -2,3 +2,6 @@ files-folders-executables/cleanup/*
 files-folders-executables/*.xml
 data/log/*.log
 apps/database/postgresql/New-OTPostgreSQLBackup.ps1
+apps/selenium/*.exe
+apps/selenium/*.dll
+apps/selenium/*.xml
