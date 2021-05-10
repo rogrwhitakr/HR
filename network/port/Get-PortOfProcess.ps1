@@ -1,0 +1,1 @@
+Get-Process -Name TeamViewer | ForEach-Object { Get-NetTCPConnection -OwningProcess $_.Id -ErrorAction SilentlyContinue }

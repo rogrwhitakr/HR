@@ -47,4 +47,4 @@ function Get-PortInfo {
     [PSCustomObject]$result
 }
 
-Get-PortInfo -Port 8119 -TimeoutMilliseconds 600
+Get-PortInfo -Port 8080 -TimeoutMilliseconds 600
