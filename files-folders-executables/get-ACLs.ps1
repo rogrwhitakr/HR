@@ -1,6 +1,6 @@
+
 PARAM (
-  $Path = 'D:\',
-  $report = '.\ACLs.csv'
+  $Path = 'D:\'
 )
 $LastWrite = @{
   Name = 'Last Write Time'
@@ -16,5 +16,4 @@ $HostName = @{
 }
 
 Get-ChildItem -Recurse -Path $Path | 
-              Select-Object $HostName, Name, Directory, $LastWrite, $Owner, Length   | 
-              Export-Csv -NoTypeInformation $Report
+              Select-Object $HostName, Name, Directory, $LastWrite, $Owner, Length 
