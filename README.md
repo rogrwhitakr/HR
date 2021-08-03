@@ -1,6 +1,7 @@
 # HR
 
-all things windows 
-
+mostly 
  - powershell
- - cmd
+ - some cmd
+
+all quick hacks, please be careful

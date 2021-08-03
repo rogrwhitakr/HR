@@ -1,0 +1,5 @@
+--how to create a log-off link
+
+Target Location:	System32
+Target:						%windir%\System32\shutdown.exe -L
+Start in:					%HOMEPATH%

@@ -1,5 +1,11 @@
 # get local shares
-Get-SmbShare
+Get-SmbShare | ForEach-Object {
 
-# 
-Get-SmbShare | select *  
+    [PSCustomObject]@{
+        Name = ($_.name)
+        Path = ($_.Path)
+        Host = $env:COMPUTERNAME
+        Call = "\\" + $env:COMPUTERNAME + "\" + ($_.name) + "\"
+      }
+  }
+  
