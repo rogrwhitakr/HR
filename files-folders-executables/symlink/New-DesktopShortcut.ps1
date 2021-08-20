@@ -14,21 +14,34 @@ Function New-DesktopShortcut {
         The full path to an icon for the shortcut.
 
         .EXAMPLE
-        New-DesktopShortcut -TargetExecutable "C:\Program Files(x86)\SuperSoftware\SuperCool.exe" -ShortcutPath = "$env:Public\Desktop\SuperCool.lnk"
+        New-DesktopShortcut -Target "C:\Program Files(x86)\SuperSoftware\SuperCool.exe" -ShortcutPath = "$env:Public\Desktop\SuperCool.lnk"
         
         .EXAMPLE
-        New-DesktopShortcut -TargetExecutable "C:\Program Files(x86)\SuperSoftware\SuperCool.exe" -ShortcutPath = "$env:Public\Desktop\SuperCool.lnk" -IconPath 'C:\icons\fancy.ico'
+        New-DesktopShortcut -Target "C:\Program Files(x86)\SuperSoftware\SuperCool.exe" -ShortcutPath = "$env:Public\Desktop\SuperCool.lnk" -IconPath 'C:\icons\fancy.ico'
     
     #>
     [cmdletBinding()]
     Param(
         
-        [Parameter(Mandatory, Position = 0)]
-        [String]$Target,
-        [parameter(Mandatory, Position = 1)]
-        [String]$ShortcutPath,
-        [Paramter(Mandatory = $false, Position = 2)]
-        [String]$IconPath
+        [String]
+        [Parameter( Mandatory = $true, ValueFromPipeline = $true,Position = 0)] 
+        [ValidateNotNullOrEmpty()]
+        [ValidateScript( {Test-Path $_ })]
+        $Target,
+
+        [String]
+        [Parameter( Mandatory = $true, ValueFromPipeline = $true,Position = 0)] 
+        [ValidateNotNullOrEmpty()]
+        [ValidateScript( {Test-Path $_ })]
+        [ValidatePattern('^[A-Za-z0-9].*?\.lnk$')]
+        $ShortcutPath,
+
+        [String]
+        [Parameter( Mandatory = $true, ValueFromPipeline = $true,Position = 0)] 
+        [ValidateNotNullOrEmpty()]
+        [ValidateScript( {Test-Path $_ })]
+        [ValidatePattern('^[A-Za-z0-9].*?\.ico$')]
+        $IconPath
         
     )
 
@@ -37,9 +50,9 @@ Function New-DesktopShortcut {
     $DesktopShortcut.TargetPath = $Target
     $DesktopShortcut.WorkingDirectory = Split-Path -Path $Target
     
-    If($IconPath){
+    If ($IconPath) {
         
-        $DesktopShortcut.IconLocation($IconPath,0)
+        $DesktopShortcut.IconLocation($IconPath, 0)
     
     }
     
