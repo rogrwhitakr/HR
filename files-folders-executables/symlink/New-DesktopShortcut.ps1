@@ -46,6 +46,7 @@ Function New-DesktopShortcut {
     )
 
     $Shell = New-Object -ComObject Wscript.Shell
+    
     $DesktopShortcut = $Shell.CreateShortcut($ShortcutPath)
     $DesktopShortcut.TargetPath = $Target
     $DesktopShortcut.WorkingDirectory = Split-Path -Path $Target
