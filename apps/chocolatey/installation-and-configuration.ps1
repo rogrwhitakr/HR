@@ -11,6 +11,9 @@ choco install pgadmin4
 # get the current in cache config
 choco list -lo -r -y | Foreach-Object { "   <package id=`"$($_.SubString(0, $_.IndexOf("|")))`" version=`"$($_.SubString($_.IndexOf("|") + 1))`" />" }
 
+choco list -lo -r -y | Foreach-Object { "   <package id=`"$($_.SubString(0, $_.IndexOf("|")))`" />" }
+
+
 # get the currently installed list without added firleyfans
 choco list -lo -r -y | Foreach-Object {$($_.SubString(0, $_.IndexOf("|")))}
 
