@@ -1,3 +1,4 @@
+.vscode/*
 files-folders-executables/cleanup/*
 files-folders-executables/*.xml
 data/log/*.log
