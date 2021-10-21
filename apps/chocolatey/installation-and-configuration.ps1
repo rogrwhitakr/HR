@@ -22,3 +22,6 @@ choco install {path-to-file.config} --yes
 
 # install from configuration file
 choco install packages.config
+
+# update all installed things
+choco upgrade all
