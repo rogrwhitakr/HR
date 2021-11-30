@@ -1,0 +1,1 @@
+Get-Process -IncludeUserName | Where-Object {$_.UserName -eq 'domain\user' -and $_.processname -eq 'java'}  | Stop-Process
