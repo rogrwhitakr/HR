@@ -3,8 +3,9 @@
 $watcher = New-Object System.IO.FileSystemWatcher
 
 $watcher.Path = 'C:\Tools\database'
+$import_path = 'C:\tools\database\copies'
 
-$watcher.IncludeSubdirectories = $true
+$watcher.IncludeSubdirectories = $false
 $watcher.EnableRaisingEvents = $true
 $watcher.Filter = "*.csv"
 
@@ -18,25 +19,22 @@ $Action = {
     $ChangeType = $details.ChangeType
     $Timestamp = $event.TimeGenerated
 
-    $text = "{0} was {1} at {2}" -f $FullPath, $ChangeType, $Timestamp
-    Write-Host -message $text
+    $text = "{0} was {1} at {2}." -f $FullPath, $ChangeType, $Timestamp
+    Write-Warning -Message $text
 
     # Define change types
     switch ($ChangeType) {
         'Changed' { "CHANGE" }
         'Created' {
-            $text = "File {0} was created. we can now move it" -f $Name
-            Write-Warning -Message $text
-            Move-Item -Path $FullPath -Destination "C:\tools\database\copies" -verbose
-        
+            Move-Item -Path $FullPath -Destination $import_path -verbose
         }
         'Deleted' {
-            Write-Host "Deletion Started" -ForegroundColor Gray
-            Write-Warning -Message 'Deletion complete'
+            $text = "File {0} was deleted/moved." -f $Name
+            Write-Warning -Message $text
         }
         'Renamed' {
             $text = "File {0} was renamed to {1}" -f $OldName, $Name
-            Write-Host $text -ForegroundColor Yellow
+            Write-Warning -Message $text
         }
         default { 
             Write-Host $_ -ForegroundColor Red -BackgroundColor White 
@@ -53,9 +51,3 @@ $handlers = . {
 }
 
 while ($true) { start-sleep 5 }
-
-#Register-ObjectEvent $filewatcher "Created" -Action $writeaction
-#Register-ObjectEvent $filewatcher "Changed" -Action $writeaction
-#Register-ObjectEvent $filewatcher "Deleted" -Action $writeaction
-#Register-ObjectEvent $filewatcher "Renamed" -Action $writeaction
-#while ($true) {sleep 5}
