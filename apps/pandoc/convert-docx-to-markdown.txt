@@ -1,0 +1,14 @@
+Pandoc supports conversion from docx to markdown directly:
+
+pandoc -f docx -t markdown foo.docx -o foo.markdown
+
+Several markdown formats are supported:
+
+-t gfm (GitHub-Flavored Markdown)  
+-t markdown_mmd (MultiMarkdown)  
+-t markdown (pandoc’s extended Markdown)  
+-t markdown_strict (original unextended Markdown)  
+-t markdown_phpextra (PHP Markdown Extra)  
+-t commonmark (CommonMark Markdown)  
+
+pandoc -f docx -t markdown _Systemintegration_Part1_V.2.2.docx -o _Systemintegration_Part1_V.2.2.markdown
