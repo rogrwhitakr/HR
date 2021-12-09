@@ -14,26 +14,24 @@ $Action = {
     $details = $event.SourceEventArgs
     $Name = $details.Name
     $FullPath = $details.FullPath
-    $OldFullPath = $details.OldFullPath
     $OldName = $details.OldName
     $ChangeType = $details.ChangeType
     $Timestamp = $event.TimeGenerated
-
-    $text = "{0} was {1} at {2}." -f $FullPath, $ChangeType, $Timestamp
-    Write-Warning -Message $text
 
     # Define change types
     switch ($ChangeType) {
         'Changed' { "CHANGE" }
         'Created' {
+            $text = "{0} was {1} at {2}." -f $FullPath, $ChangeType, $Timestamp
+            Write-Warning -Message $text
             Move-Item -Path $FullPath -Destination $import_path -verbose
         }
         'Deleted' {
-            $text = "File {0} was deleted/moved." -f $Name
+            $text = "{0} was {1} at {2}." -f $FullPath, $ChangeType, $Timestamp
             Write-Warning -Message $text
         }
         'Renamed' {
-            $text = "File {0} was renamed to {1}" -f $OldName, $Name
+            $text = "{0} was {1} at {2} to {3}." -f $OldName, $ChangeType, $Timestamp, $Name
             Write-Warning -Message $text
         }
         default { 
