@@ -12,3 +12,12 @@ Several markdown formats are supported:
 -t commonmark (CommonMark Markdown)  
 
 pandoc -f docx -t markdown _Systemintegration_Part1_V.2.2.docx -o _Systemintegration_Part1_V.2.2.markdown
+
+pandoc -f docx -t markdown 02_functional_specification_orig.docx --output O3_1.md --wrap=none --column=999 --standalone
+
+# specify extension you want and down want by appending to the --to specifier:
+# markdown -this_convention +that_convention 
+# list of these 
+# https://github.com/jgm/pandoc/wiki/Tabular-overview%3A-Pandoc%27s-supported-Markdown-dialects-and-extensions-enabled-by-default
+
+pandoc -f docx -t markdown-grid_tables-multiline_tables-simple_tables+pipe_tables 02_functional_specification_orig.docx --output O3_3.md --wrap=none --column=499  --standalone
