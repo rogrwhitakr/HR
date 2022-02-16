@@ -1,4 +1,13 @@
-﻿
+﻿# read a xml encoded mail config
+# and extract ist values to a return object containing smtp server valuez
+
+# path of the config
+
+$config = 'C:\repos\OPTITOOL\mail-server\mailConfig.optitool.xml'
+
+$config 
+
+
 # this is a demo this, not really usable
 # *****************************************************************************************************************
 function Read-XMLConfig {
@@ -8,95 +17,33 @@ function Read-XMLConfig {
     (
         [String]
         [Parameter( Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullorEmpty()]
         $ConfigurationFile
             
     )
 
-    #Variables
-
     $cfg = $ConfigurationFile 
-    $cfg_dir = "config"
-
-    #Read-XMLConfig
-    
 
     try {
-        
         if ((Test-Path -Path $cfg) -eq $true) {
-
             $config = [xml] ( Get-Content -Path $cfg )
-
-            Write-Host "Parsing configuration file "$cfg.ToString()
             return $config
-
-        }
-        
+        }   
         else {
-
-            Write-Output "using configuration file $cfg"
-            Write-Output "searching directory $PSScriptRoot\$cfg_dir for configuration file..."
-
-            $file = (Join-Path -Path $PSScriptRoot.ToString() -ChildPath (Join-Path -Path $cfg_dir -ChildPath $cfg) )
-
-            if ((Test-Path -Path $file) -eq $true) {
-
-                $config = [xml] ( Get-Content -Path $file )
-
-                Write-Host "Parsing "$file.ToString()
-                return $config
-
-            }
-
-            else {
-
-                Write-Output "Could not find configuration file "$file
-
-            }
+            Write-Warning -Message ("Could not find or read configuration file {0}" -f $file)
+            return 
         }
     }
     catch {
 
         $ErrorMessage = $_.Exception.Message
-        # *****************************************************************************************************************
-        Write-Output "ERROR: "$ErrorMessage"`n" $_.Exception.ErrorDetails
-        Write-Output "DETAILS:" $_.Exception.ErrorDetails
+        Write-Error "ERROR: "$ErrorMessage"`n" $_.Exception.ErrorDetails
+        Write-Error "DETAILS:" $_.Exception.ErrorDetails
 
     }
 }
 
 
 Write-Host "RUN_1" -BackgroundColor DarkRed
-Read-XMLConfig -ConfigurationFile "virtual-machines.xml"
-
-Write-Host "RUN_2" -BackgroundColor DarkRed
-Read-XMLConfig -ConfigurationFile "C:\MyScripts\Windows\PS\config\virtual-machines.xml"
-
-Write-Host "RUN_3_WRITING_CONFIG_TO_VARIABLE" -BackgroundColor DarkRed
-$computers = Read-XMLConfig -ConfigurationFile "C:\MyScripts\Windows\PS\config\virtual-machines.xml"
-
-#new-config
-#save-config (overwrite existing)
-
-Write-Host "LOOPING_XML" -BackgroundColor DarkRed
-$config = [xml] ( Get-Content -Path C:\MyScripts\Windows\PS\config\virtual-machines.xml )
-
-$a = 1
-
-foreach( $computer in $computers.configuration.computers.target) 
-{ 
-
-    Write-Host $computer.name
-    Write-Host "`n"$a -BackgroundColor Yellow -ForegroundColor Black
-    $a = $a + 1
-} 
-
-# *****************************************************************************************************************
-
-# xml cmdlets:
-# Import-CliXml, Export-CliXml, ConvertTo-Xml
-
-$xml = Import-Clixml -Path "C:\MyScripts\northern-lights\CONF\User\user-profiles.xml"
-
-$xml
-
-gh Import-Clixml
+Read-XMLConfig -ConfigurationFile "modules.xml"
+Read-XMLConfig -ConfigurationFile "C:\repos\HR\data\xml\modules.xml"
