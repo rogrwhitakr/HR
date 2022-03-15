@@ -1,0 +1,11 @@
+
+  <Actions Context="Author">
+    <Exec>
+      <Command>powershell</Command>
+      <Arguments>-NonInteractive -WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -Command "&amp; {Get-Service -Name \"thingy Service\" | Restart-Service}"</Arguments>
+    </Exec>
+    <Exec>
+      <Command>powershell.exe</Command>
+      <Arguments>D:\Scriptsremove-invalidXML.ps1</Arguments>
+    </Exec>
+  </Actions>
