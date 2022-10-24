@@ -1,0 +1,1 @@
+Register-ScheduledTask -TaskName "Start Winserv on Logon" -Xml "<paste xml here>" -Force

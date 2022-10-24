@@ -10,3 +10,5 @@ $2 = [datetime]::parseexact($hypothetical_filename.Substring(0, 18), "yyyyMMdd_H
 # compute timespan
 New-TimeSpan -Start $1 -End $2
 
+# get the calendar week for a date
+get-date -Date 19.09.2022 -UFormat %V
