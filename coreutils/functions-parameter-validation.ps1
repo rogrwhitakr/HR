@@ -9,6 +9,9 @@
 
 # hidden parameters
 function Test-Something {
+
+    [Alias('yo-momma')]
+    
     param
     (
         [string]

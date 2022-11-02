@@ -12,3 +12,16 @@ New-TimeSpan -Start $1 -End $2
 
 # get the calendar week for a date
 get-date -Date 19.09.2022 -UFormat %V
+
+#bashrc function
+function Get-CalendarWeek {
+    [Alias('gcw')]
+    param
+    (
+        [System.DateTime]
+        [Parameter( Mandatory = $false, ValueFromPipeline = $true)]
+        $Date
+    )
+    return '{0} {1}' -f 'KW', (get-date -UFormat %V)
+} 
+
