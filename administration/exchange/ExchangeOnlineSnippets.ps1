@@ -6,7 +6,7 @@
 Find-Module -Name ExchangeOnlineManagement | Install-Module -Scope AllUsers
 Install-Module -Name ExchangeOnlineManagement
 
-Get-Module -Name ExchangeOnlineManagement -ListAvailable | Select-Object Name, Version, Path
+Get-Module -Name ExchangeOnlineManagement -ListAvailable | select Name, Version, Path
 
 get-command -type Cmdlet -module ExchangeOnlineManagement
 get-command -module ExchangeOnlineManagement
