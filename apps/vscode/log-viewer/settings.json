@@ -1,0 +1,16 @@
+{
+    "window.zoomLevel": -2,
+    "logViewer.watch": [
+                    {
+                "title": "XML Import",
+                "pattern": "/home/HR/Schreibtisch/HR/Client/HR/logs/xml_import/*.log"
+            },
+            {
+                "title": "Application Server",
+                "pattern": "/home/HR/Schreibtisch/HR/AS/apache-tomee-plus/logs/all.log"
+            },
+    ],
+    "logViewer.options": {
+        
+    }
+}
