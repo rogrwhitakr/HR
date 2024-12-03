@@ -101,7 +101,7 @@ $tool = Join-Path -Path ${env:ProgramFiles(x86)} -ChildPath ( Get-ChildItem -Pat
     catch [Exception] {
         Write-Output $_.Exception.Message
     }
-}
+
  
 else {
     Write-Output "found $winscpnet in $winscppath"
@@ -130,7 +130,7 @@ $session = New-Object WinSCP.Session
     Write-Output $directoryInfo
     pause
     # Ihr Code
-}
+
  
 catch [Exception] {
     Write-Output ("Error: {0}" -f $_.Exception.Message)
@@ -142,6 +142,3 @@ finally {
  
  #   exit 0
 }
-The authenticity of host '192.168.150.254 (192.168.150.254)' can't be established.
-ECDSA key fingerprint is SHA256:QDC6jbMl9Sxzp95nz2qzbn/W6lL6lWM+QT/66qartQY.
-ECDSA key fingerprint is MD5:5c:fc:1b:24:1b:f0:44:56:6d:ba:05:5c:f4:d3:fd:44.
