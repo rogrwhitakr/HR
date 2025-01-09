@@ -61,7 +61,7 @@ $data = "2123344,11"
 $data = "24,011"
 $data = "some text"
 
-$data.Replace(",",".")
+$data.Replace(",", ".")
 
 $pattern = '^\d{1,6}($|.\d{1,2})'
 $pattern = '^[0-9]{1-6}'
@@ -119,6 +119,29 @@ function New-BuildName {
 
     $pattern = '[^a-zA-Z0-9]'
     $index = $string.IndexOf("Customer")
-    return ($string -replace($pattern,'-')).Substring($index)
+    return ($string -replace ($pattern, '-')).Substring($index)
 
 }
+
+# match subnet and return its assigned location information (that we provide manually)
+
+function Get-SubnetLocation {
+
+    [CmdletBinding()]
+
+    param
+    (
+        [string]
+        [Parameter( Mandatory = $true, ValueFromPipeline = $true)]
+        $data
+    )
+
+    switch -Regex ($data) {
+        '^(10\.20\.210\.\d{1,3})$' { return "GRAZ" }
+        '^(192\.168\.17\.\d{1,3})$' { return "WELS" }
+        '^(192\.168\.102\.\d{1,3})$' { return "WIENER NEUSTADT" }
+        '^(192\.168\.3\.\d{1,3})$' { return "HALL IN TIROL" }
+        default { return "UNBEKANNTER STANDORT $data" }
+    }
+}
+
