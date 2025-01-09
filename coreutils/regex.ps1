@@ -128,20 +128,20 @@ function New-BuildName {
 function Get-SubnetLocation {
 
     [CmdletBinding()]
-
+  
     param
     (
         [string]
         [Parameter( Mandatory = $true, ValueFromPipeline = $true)]
         $data
     )
-
+  
     switch -Regex ($data) {
         '^(10\.20\.210\.\d{1,3})$' { return "GRAZ" }
-        '^(192\.168\.17\.\d{1,3})$' { return "WELS" }
-        '^(192\.168\.102\.\d{1,3})$' { return "WIENER NEUSTADT" }
+        '^(192\.168\.17\.\d{1,3})$' { return "WIENER NEUSTADT" }
+        '^(192\.168\.102\.\d{1,3})$' { return "WELS" }
         '^(192\.168\.3\.\d{1,3})$' { return "HALL IN TIROL" }
+        '^(192\.168\.21\d{1}\.\d{1,3})$' { return "VPN" }
         default { return "UNBEKANNTER STANDORT $data" }
     }
-}
-
+  }
