@@ -21,3 +21,10 @@ ForEach-Object {
   [PSCustomObject]$hash
   
 } 
+
+# display events of specific severity on specific log
+while ($true) {
+  Clear-Host
+  Get-WinEvent -FilterHashtable @{ProviderName='Lasernet Cloud Print Connector'; Level=1..3} -MaxEvents 2 | Sort-Object TimeCreated -Descending | Select-Object TimeCreated,LevelDisplayName,Message | Format-List
+  Start-Sleep -Seconds 2
+}
