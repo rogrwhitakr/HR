@@ -25,4 +25,4 @@ function New-FileTime {
 $a = Get-Date
 $a = $a.AddDays(-45)
 
-New-FileTime -File 'C:\OPTITOOL\Adolf_Roth\01_AS\apache-tomee-plus-7.0.4\LICENSE' -DatetimeSet $a
+New-FileTime -File 'file' -DatetimeSet $a

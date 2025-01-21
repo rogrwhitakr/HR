@@ -3,7 +3,7 @@
 
 # path of the config
 
-$config = 'C:\repos\OPTITOOL\mail-server\mailConfig.optitool.xml'
+$config = "$PSScriptRoot\mailConfig.xml"
 
 function Read-XMLConfig {
 
@@ -49,7 +49,7 @@ Write-Host "RUN_2" -BackgroundColor DarkRed
 
 $MailParams = @{
     From       = $values.'mail.smtp.from'
-    To         = 'benno.osterholt@optitool.de'
+    To         = 'user@company.de'
     Subject    = 'Testmail'
     Body       = 'also testmail'
     SMTPServer = $values.'mail.smtp.host'

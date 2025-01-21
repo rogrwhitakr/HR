@@ -1,5 +1,5 @@
 
-$servers = $env:COMPUTERNAME, 'gil.corp.optitool.de'
+$servers = $env:COMPUTERNAME, 'd365-sscan2.see.int'
 $result = @()
 $credential = Get-Credential
 $option = New-CimSessionOption -Protocol Wsman

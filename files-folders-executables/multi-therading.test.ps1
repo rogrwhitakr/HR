@@ -1,8 +1,8 @@
 # location of some stuffs
 
-$localpath = 'C:\OPTITOOL\_test_'
+$localpath = 'C:\_test_'
 
-$basepath = '\\nssrv\Sales-Environment\SE\__db__'
+$basepath = '\\fileshare\subpath\more-subpath\__db__'
 
 $files = Get-ChildItem -Path $basepath -Recurse
 

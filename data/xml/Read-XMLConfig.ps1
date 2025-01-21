@@ -3,7 +3,7 @@
 
 # path of the config
 
-$config = 'C:\repos\OPTITOOL\mail-server\mailConfig.optitool.xml'
+$config = "$PSScriptRoot\mailConfig.xml"
 
 $config 
 

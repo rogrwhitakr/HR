@@ -6,7 +6,7 @@
 #    Rename-Item -Path -NewName -WhatIf
 #}
 
-$files = Get-ChildItem -Path "C:\repos\OPTITOOL\master-data-templates" -Filter "*.xml"
+$files = Get-ChildItem -Path "$PSScriptRoot\master-data-templates" -Filter "*.xml"
 
 $curr_dir = Get-Location
 
