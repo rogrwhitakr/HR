@@ -1,0 +1,19 @@
+{
+    "pinnedList": [
+        {
+            "desktopAppLink": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft Edge.lnk"
+        },
+        {
+            "packagedAppId": "windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel"
+        },
+        {
+            "desktopAppLink": "%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\File Explorer.lnk"
+        },
+        {
+            "packagedAppId": "Mozilla.Firefox_n80bbvh6b1yt2!App"
+        },
+        {
+            "desktopAppLink": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\TOSHIBA TEC\\BCP Setting Tool\\BCP Setting Tool.lnk"
+        }
+    ]
+}
