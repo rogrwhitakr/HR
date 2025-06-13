@@ -62,7 +62,6 @@ Function Use-7ZipCompression {
 
         [String]
         [Parameter( Mandatory = $true, ValueFromPipeline = $true, Position = 2)] 
-        [ValidateScript( {Test-Path $_ -include *.zip, *.7z})]
         $Archive
     )
 
@@ -113,8 +112,8 @@ function g {
             break
         }
 
-        Write-Verbose $args.Count, "Arguments detected"
-        Write-Verbose "Parsing out Arguments: $args"
+        # Write-Verbose $args.Count, "Arguments detected"
+        # Write-Verbose "Parsing out Arguments: $args"
         for ($i = 0; $i -le $args.Count; $i++) {
             $args | ForEach-Object {"Arg $i `t $_ `t Length `t" + $_.Length, " characters"} | Out-Null
         }
@@ -127,6 +126,15 @@ function g {
     }
 }
 
+function att {
+
+    while ($true) {
+        $wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('  ')
+        Start-Sleep -Seconds 180
+    }
+}
+
 export-modulemember -function g
 export-modulemember -function Find-Executable
 export-modulemember -function Use-7ZipCompression
+export-modulemember -function att
