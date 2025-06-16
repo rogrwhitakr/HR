@@ -134,7 +134,18 @@ function att {
     }
 }
 
+function Get-CurrentCalendarWeek {
+    $currentDate = Get-Date
+    $calendarWeek = [System.Globalization.CultureInfo]::CurrentCulture.Calendar.GetWeekOfYear(
+        $currentDate,
+        [System.Globalization.CalendarWeekRule]::FirstFourDayWeek,
+        [System.DayOfWeek]::Monday
+    )
+    return "KW" + $calendarWeek + "_quarantine-remediation" | clip
+}
+
 export-modulemember -function g
 export-modulemember -function Find-Executable
 export-modulemember -function Use-7ZipCompression
 export-modulemember -function att
+export-modulemember -function Get-CurrentCalendarWeek

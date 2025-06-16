@@ -14,7 +14,7 @@ while ($true) {
 function att {
 
     while ($true) {
-    $wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('  ')
-    Start-Sleep -Seconds 180
-}
+        $wshell = New-Object -ComObject wscript.shell; $wshell.SendKeys('  ')
+        Start-Sleep -Seconds 180
+    }
 }

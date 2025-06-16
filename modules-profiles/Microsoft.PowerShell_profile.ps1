@@ -1,4 +1,4 @@
-Write-Host "using profile..."
+Write-Host "using profile...                   "
 
 # initial setup:
 # execute as admin
@@ -16,5 +16,4 @@ Write-Host "using profile..."
 $repo_path = "C:\Users\benno.osterholt\OneDrive - SEEFELDER GmbH\repos"
 
 Import-Module (join-path -Path $repo_path -ChildPath "HR\modules-profiles\modules\Tooling\Tooling.psm1")
-
 Import-Module (join-path -Path $repo_path -ChildPath "HR\modules-profiles\modules\m365\exchange.psm1")
