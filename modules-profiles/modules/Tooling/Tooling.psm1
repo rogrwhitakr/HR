@@ -144,6 +144,42 @@ function Get-CurrentCalendarWeek {
     return "KW" + $calendarWeek + "_quarantine-remediation" | clip
 }
 
+
+function Get-MSIProductInfo {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$msiPath
+    )
+
+    if (-not (Test-Path $msiPath)) {
+        Write-Error "MSI file not found at path: $msiPath"
+        return
+    }
+
+    try {
+        $installer = New-Object -ComObject WindowsInstaller.Installer
+        $database = $installer.GetType().InvokeMember("OpenDatabase", "InvokeMethod", $null, $installer, @($msiPath, 0))
+        $view = $database.OpenView("SELECT * FROM Property")
+        $view.Execute()
+        $record = $view.Fetch()
+        $properties = @{}
+
+        while ($record) {
+            $property = $record.StringData(1)
+            $value = $record.StringData(2)
+            if ($property -eq "ProductCode" -or $property -eq "ProductVersion") {
+                $properties[$property] = $value
+            }
+            $record = $view.Fetch()
+        }
+
+        return $properties
+    } catch {
+        Write-Error "Failed to read MSI file: $_"
+    }
+}
+
+export-modulemember -function Get-MSIProductInfo
 export-modulemember -function g
 export-modulemember -function Find-Executable
 export-modulemember -function Use-7ZipCompression
