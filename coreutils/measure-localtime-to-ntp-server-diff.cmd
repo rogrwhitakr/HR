@@ -1,0 +1,1 @@
+w32tm /stripchart /computer:time.nist.gov /dataonly /samples:5
