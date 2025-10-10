@@ -183,5 +183,5 @@ export-modulemember -function Get-MSIProductInfo
 export-modulemember -function g
 export-modulemember -function Find-Executable
 export-modulemember -function Use-7ZipCompression
-export-modulemember -function att
+export-modulemember -function att -Verbose
 export-modulemember -function Get-CurrentCalendarWeek

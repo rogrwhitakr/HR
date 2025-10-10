@@ -17,3 +17,7 @@ $repo_path = "C:\Users\benno.osterholt\OneDrive - SEEFELDER GmbH\repos"
 
 Import-Module (join-path -Path $repo_path -ChildPath "HR\modules-profiles\modules\Tooling\Tooling.psm1")
 Import-Module (join-path -Path $repo_path -ChildPath "HR\modules-profiles\modules\m365\exchange.psm1")
+
+# intune
+Import-Module (join-path -Path $repo_path -ChildPath "SEEFELDER\AZURE\user-groups-devices\Open-EntraDevice.psm1")
+Import-Module (join-path -Path $repo_path -ChildPath "SEEFELDER\AZURE\user-groups-devices\Open-EntraUser.psm1")
