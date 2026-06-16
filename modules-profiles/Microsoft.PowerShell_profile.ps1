@@ -1,5 +1,5 @@
-Write-Host "using profile...                   "
-
+Write-Host "using profile $PROFILE"
+  
 # initial setup:
 # execute as admin
 # $target = "C:\Users\<username>\<OneDrive-folder>\repos\HR\modules-profiles\Microsoft.PowerShell_profile.ps1"

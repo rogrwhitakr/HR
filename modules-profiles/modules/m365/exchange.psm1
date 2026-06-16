@@ -24,4 +24,4 @@ function Get-PermsAndForwarding {
     $mailbox.DeliverToMailboxAndForward
 }
 
-export-modulemember -function Get-PermsAndForwarding
+export-modulemember -function Get-PermsAndForwarding -Verbose

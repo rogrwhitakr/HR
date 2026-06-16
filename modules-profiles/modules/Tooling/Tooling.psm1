@@ -134,6 +134,16 @@ function att {
     }
 }
 
+function at17 {
+    $wshell = New-Object -ComObject WScript.Shell
+    $endTime = [datetime]::Today.AddHours(17)
+
+    while ((Get-Date) -lt $endTime) {
+        $wshell.SendKeys('  ')
+        Start-Sleep -Seconds 180
+    }
+}
+
 function Get-CurrentCalendarWeek {
     $currentDate = Get-Date
     $calendarWeek = [System.Globalization.CultureInfo]::CurrentCulture.Calendar.GetWeekOfYear(
@@ -141,7 +151,7 @@ function Get-CurrentCalendarWeek {
         [System.Globalization.CalendarWeekRule]::FirstFourDayWeek,
         [System.DayOfWeek]::Monday
     )
-    return "KW" + $calendarWeek + "_quarantine-remediation" | clip
+    return $calendarWeek
 }
 
 
@@ -179,9 +189,10 @@ function Get-MSIProductInfo {
     }
 }
 
-export-modulemember -function Get-MSIProductInfo
-export-modulemember -function g
-export-modulemember -function Find-Executable
-export-modulemember -function Use-7ZipCompression
+export-modulemember -function Get-MSIProductInfo -Verbose
+export-modulemember -function g -Verbose
+export-modulemember -function Find-Executable -Verbose
+export-modulemember -function Use-7ZipCompression -Verbose
 export-modulemember -function att -Verbose
-export-modulemember -function Get-CurrentCalendarWeek
+export-modulemember -function at17 -Verbose
+export-modulemember -function Get-CurrentCalendarWeek -Verbose
