@@ -1,0 +1,29 @@
+# Browsers & Communication
+googlechrome
+firefox
+
+# Utilities (latest)
+sysinternals
+git
+gitextensions
+greenshot
+wireshark
+putty
+dbeaver
+wireguard
+Everything
+bitwarden
+ditto
+postman
+sumatrapdf.install
+teamviewer
+windirstat
+winscp.install
+# remote-desktop-manager
+rdm
+
+# Example with specific pinned versions (optional)
+# dbeaver:23.3.0
+# python3=3.11.8
+
+# installs missing, b/c no chocolatey package available
