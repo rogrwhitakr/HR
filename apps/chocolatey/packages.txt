@@ -21,9 +21,24 @@ windirstat
 winscp.install
 # remote-desktop-manager
 rdm
+pandoc
+dngrep
 
 # Example with specific pinned versions (optional)
 # dbeaver:23.3.0
 # python3=3.11.8
 
-# installs missing, b/c no chocolatey package available
+# not on list currently, uncomment if install desired
+# 7zip.install
+# dngrep
+# foxitreader
+# iperf3
+# irfanview
+# microsoft-windows-terminal
+# notepadplusplus.install
+# sql-server-management-studio
+# virt-viewer
+# vlc.install
+# vscode.install
+# windirstat
+# winscp.install
