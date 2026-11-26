@@ -22,3 +22,5 @@ Import-Module (join-path -Path $repo_path -ChildPath "HR\files-folders-executabl
 Import-Module (join-path -Path $repo_path -ChildPath "SEEFELDER\AZURE\user-groups-devices\Open-EntraDevice.psm1")
 Import-Module (join-path -Path $repo_path -ChildPath "SEEFELDER\AZURE\user-groups-devices\Open-EntraUser.psm1")
 Import-Module (join-path -Path $repo_path -ChildPath "SEEFELDER\AZURE\user-groups-devices\Open-TeamsUserActivity.psm1")
+# exchange
+Import-Module (join-path -Path $repo_path -ChildPath "SEEFELDER\exchange\remove-oldMailboxRules.psm1")
